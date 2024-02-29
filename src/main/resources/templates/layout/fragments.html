@@ -23,9 +23,10 @@
       </div>
       <ul>
         <li><a  th:href="@{/}">Inicio</a></li>
-        <li><a th:href="@{/propiedades/PaginaPropiedades}">Propiedades</a></li>
-        <li><a th:href="@{/nosotros/PaginaNosotros}">Nosotros</a></li>
-        <li><a th:href="@{/contacto/PaginaContacto}">Contacto</a></li>
+<!--        Aún no tiene controlador -->
+        <li><a th:href="@{/}">Propiedades</a></li>
+        <li><a th:href="@{/aboutUs}">Nosotros</a></li>
+        <li><a th:href="@{/contact}">Contacto</a></li>
       </ul>
       <ul class="navbar-nav" sec:authorize='isAuthenticated()'  >
         <li class="nav-item text-white my-auto">
@@ -52,8 +53,8 @@
 
         <li>Inicio</li>
         <li>Propiedades</li>
-        <li><a th:href="@{/nosotros/PaginaNosotros}">Nosotros</a></li>
-        <li><a th:href="@{/contacto/PaginaContacto}">Contacto</a></li>
+        <li><a th:href="@{/aboutUs}">Nosotros</a></li>
+        <li><a th:href="@{/contact}">Contacto</a></li>
       </ul>
     </div>
     <div class="Iconos">
