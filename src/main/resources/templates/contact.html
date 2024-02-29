@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{ layout/fragments :: head }">
+        <title>Bienes Raices</title>
+        <meta charset="UTF-8"/>
+
+    </head>
+    <body>
+        <header th:replace="~{ layout/fragments :: header }"/>
+
+        <main>
+            <h1>Contacto</h1>
+            <div>
+                <form action="" method="POST">
+                    <fieldset>
+                        <legend>
+                            Contacto
+                        </legend>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" name="nombre" id="nombre" />
+                        <label for="correo">Correo</label>
+                        <input type="email" name="correo" id="correo" />
+                        <label for="asunto">Asunto</label>
+                        <input type="text" name="asunto" id="asunto" />
+                        <label for="mensaje">Mensaje</label>
+                        <textarea name="mensaje" id="mensaje">
+
+                                </textarea>
+                    </fieldset>
+                    <button type="submit">
+                        Enviar
+                    </button>
+                </form>
+            </div>
+        </main>
+        <footer th:replace="~{ layout/fragments :: footer }"/>
+    </body>
+</html>

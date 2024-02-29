@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+
+</body>
+  <head th:fragment="head">
+    <title>Bienes Raíces</title>
+    <meta charset="UTF-8"/>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+  </head>
+  <body>
+
+  <header th:fragment="header" class="header">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+
+      <div>
+        <h2>Nombre de la empresa</h2>
+      </div>
+      <ul>
+        <li><a  th:href="@{/}">Inicio</a></li>
+        <li><a th:href="@{/propiedades/PaginaPropiedades}">Propiedades</a></li>
+        <li><a th:href="@{/nosotros/PaginaNosotros}">Nosotros</a></li>
+        <li><a th:href="@{/contacto/PaginaContacto}">Contacto</a></li>
+      </ul>
+      <ul class="navbar-nav" sec:authorize='isAuthenticated()'  >
+        <li class="nav-item text-white my-auto">
+          <img th:src='@{${session.usuarioImagen}}'
+               height="40"
+               class="rounded-circle"
+          />
+          <span sec:authentication='name'>Jhon</span>
+        </li>
+        <li class="nav-item text-white my-auto">
+          <form method="post" th:action='@{/logout}'>
+            <button class="btn btn-dark">
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <footer th:fragment= "footer" class="footer">
+    <div>
+      <ul>
+
+        <li>Inicio</li>
+        <li>Propiedades</li>
+        <li><a th:href="@{/nosotros/PaginaNosotros}">Nosotros</a></li>
+        <li><a th:href="@{/contacto/PaginaContacto}">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="Iconos">
+
+    </div>
+    <div>
+      <p>Todos los Derechos Reservados.2024</p>
+    </div>
+  </footer>
+</html>

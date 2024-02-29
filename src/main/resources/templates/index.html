@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/fragments :: head }"></head>
+    <body>
+    <header th:replace="~{ layout/fragments :: header }"/>
+
+    <main>
+        <h1>Bienvenido</h1>
+        <div>
+            <div>
+                <img src="" alt="imagen-icono"/>
+                <h3>Competitivo</h3>
+                <p>
+                    Ofrecemos una amplia selección de propiedades a
+                    precios competitivos que se ajustan a diversos presupuestos.
+                </p>
+            </div>
+            <div>
+                <img src="" alt="imagen-icono"/>
+                <h3>Calidad Garantizada</h3>
+                <p>
+                    Garantizamos la calidad de nuestras propiedades, trabajando con vendedores confiables
+                    para ofrecerle lo mejor.
+                </p>
+            </div>
+            <div>
+                <img src="" alt="imagen-icono">
+                <h3>Asesoramiento Profesional</h3>
+                <p>
+                    Nuestro equipo de agentes inmobiliarios altamente capacitados está listo
+                    para brindarte asesoramiento experto en cada paso del proceso de compra de tu propiedad.
+                </p>
+            </div>
+        </div>
+    </main>
+    <section>
+        <h2>Propiedades en venta</h2>
+
+        <div>
+            <a href="#">Ver Mas</a>
+        </div>
+    </section>
+    <section>
+        <h2>Buscar tu mejor opción?</h2>
+        <p>Contactanos por medio del formulario de contacto para que un asesor se ponga en contacto contigo</p>
+        <a href="url">Contactanos</a>
+    </section>
+    <footer th:replace="~{ layout/fragments :: footer }"/>
+</body>
+</html>

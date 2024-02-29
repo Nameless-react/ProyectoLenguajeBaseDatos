@@ -11,3 +11,27 @@ public class BienesRaicesApplication {
 	}
 
 }
+
+//<dependency>
+//<groupId>com.oracle.database.jdbc</groupId>
+//<artifactId>ojdbc11</artifactId>
+//<scope>runtime</scope>
+//</dependency>
+
+
+//<dependency>
+//<groupId>org.springframework.boot</groupId>
+//<artifactId>spring-boot-starter-data-jpa</artifactId>
+//</dependency>
+
+//
+//<dependency>
+//<groupId>org.springframework.boot</groupId>
+//<artifactId>spring-boot-starter-security</artifactId>
+//</dependency>
+//
+//<dependency>
+//<groupId>org.springframework.security</groupId>
+//<artifactId>spring-security-test</artifactId>
+//<scope>test</scope>
+//</dependency>
