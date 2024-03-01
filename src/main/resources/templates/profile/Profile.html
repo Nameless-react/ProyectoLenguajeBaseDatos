@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{ layout/fragments :: head }">
+        <title>Bienes Raices</title>
+        <meta charset="UTF-8"/>
+
+    </head>
+    <body>
+        <header th:replace="~{ layout/fragments :: header }"/>
+
+        <main >
+            <div class="justify-content-center">
+                <div class="col-md-auto">
+                    <div class=" bg-secondary">
+                        <div class="d-flex align-items-center">
+                            <img src="/img/ejemplo.jpg" height="200" class="rounded-circle mr-4mt-2 mb-2" style="margin: 10px" /> 
+                            <div style="margin-left: 8px">
+                                <h4 class=" mb-0">Nombre Apellidos</h4>
+                                <p class="mb-2 mt-2">Correo</p>
+                                <p class="">Teléfono</p>
+                                <a href="#" class="btn btn-dark">
+                                    <i class="fa-solid fa-gear fa-lg mr-2"></i> Editar Perfil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </main>
+
+        <section style="margin-left: 20px">
+            <div class="mt-3 ml-3 mb-3"> 
+                <div class="d-flex">
+                    <a href="#" class="btn btn-success px-5 py-2 ml-3 mr-3 mt-3 tex-light">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+                    <h2 class="mt-3 ml-3" style="margin-left: 4px">
+                        Agregar Propiedades en venta
+                    </h2>
+                </div>    
+                <div class="contenedor-favoritos">
+                    <div class="propiedad">
+                        <img src="src" alt="alt"/>
+                        <h3>Titulo</h3>
+                        <p>text</p>
+                        <div>
+                            <a href="#" class="btn btn-dark"> Ver Mas</a>
+                            <a href="#" class="btn btn-danger text-light"><i class="fa-solid fa-trash"></i></a>
+                            <a href="#" class="btn btn-primary text-light"><i class="fa-solid fa-pencil"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section style="margin-left: 20px">
+            <div class="mt-3 ml-3 mb-3">
+                <h2 class="">
+                    Favoritos
+
+                </h2>
+                <div class="contenedor-favoritos">
+                    <div class="propiedad">
+                        <img src="src" alt="alt"/>
+                        <h3>Titulo</h3>
+                        <p>text</p>
+                        <div>
+                            <a href="#" class="btn btn-dark"> Ver Mas</a>
+                            <a href="#" class="btn btn-danger text-light"><i class="fa-solid fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+        <footer th:replace="~{ layout/fragments :: footer }"/>
+    </body>
+</html>

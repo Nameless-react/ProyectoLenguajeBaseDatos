@@ -100,15 +100,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                         <th>Apellido</th>
                                         <th>Correo</th>
                                         <th>Telefono</th>
+                                        <th>Cedula</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="seller, contador : ${sellers}">
-                                        <td>[[${contador.count}]]</td>
-                                        <td>[[${seller.sellername}]]</td>
+                                        <td>[[${contador.count}]]</td>                                
                                         <td>[[${seller.nombre}]]</td>
                                         <td>[[${seller.apellidos}]]</td>
+                                        <td>[[${seller.correo}]]</td>
+                                        <td>[[${seller.telefono}]]</td>
+                                        <td>[[${seller.cedula}]]</td>
                                         <td sec:authorize="hasRole('ROLE_ADMIN')">
                                             <a th:href="@{/seller/eliminar/}+${seller.idSeller}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i> [[#{accion.eliminar}]]

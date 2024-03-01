@@ -18,6 +18,6 @@ public class PropertyController {
     //This list was made for the  CRUD
     @GetMapping("/propertyList")
     public String propertyList(){
-        return "/properties/List";
+        return "/properties/list";
     }
 }

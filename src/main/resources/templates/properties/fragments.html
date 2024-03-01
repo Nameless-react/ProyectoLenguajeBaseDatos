@@ -128,18 +128,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Correo</th>
-                                        <th>Telefono</th>
+                                        <th>Precio</th>
+                                        <th>Numero de Baños</th>
+                                        <th>Numero de Habitaciones</th>
+                                        <th>Numero de Estacionamientos</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="property, contador : ${properties}">
-                                        <td>[[${contador.count}]]</td>
-                                        <td>[[${property.username}]]</td>
+                                        <td>[[${contador.count}]]</td>                                
                                         <td>[[${property.nombre}]]</td>
-                                        <td>[[${property.apellidos}]]</td>
+                                        <td>[[${property.precio}]]</td>
+                                        <td>[[${property.wc}]]</td>
+                                        <td>[[${property.habitaciones}]]</td>
+                                        <td>[[${property.estacionamientos}]]</td>
                                         <td sec:authorize="hasRole('ROLE_ADMIN')">
                                             <a th:href="@{/property/eliminar/}+${property.idProperty}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
