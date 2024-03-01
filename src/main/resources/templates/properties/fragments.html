@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/fragments :: head}">
+        <title>Bienes Raices</title>
+    </head>
+    <body>
+
+
+
+        <!-- Section to save Seller it will call a modal window -->
+
+        <section th:fragment="addProperty">
+            <div id="addProperty" 
+                 class="modal fade" 
+                 tabindex="-1" 
+                 aria-labelledby="exampleModalLabel" 
+                 aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-dark text-white">
+                            <h5 class="modal-title">Agregar Propiedad</h5>
+                            <button type="button" 
+                                    class="btn-close btn-close-white"
+                                    data-bs-dismiss="modal" 
+                                    aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/property/guardar}" th:object="${property}"
+                              method="POST" class="was-validated"
+                              enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="titulo">Titulo</label>
+                                    <input type="text" class="form-control" name="titulo" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="precio">Precio</label>
+                                    <input type="number" class="form-control" name="precio" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edadConstruccion">Edad de la Construcción</label>
+                                    <input type="number" class="form-control" name="edadConstruccion" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="direccion">Dirección</label>
+                                    <input type="text" class="form-control" name="direccion" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion">Descripción</label>
+                                    <textarea id="descripcion" class="form-control" name="descripcion" rows="5" cols="10" >
+                                        
+                                    </textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="wc"> Número Baños</label>
+                                    <input type="number" class="form-control" name="wc" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="habitaciones"> Número Habitaciones</label>
+                                    <input type="number" class="form-control" name="habitaciones" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="estacionamientos">Estacionamientos</label>
+                                    <input type="number" class="form-control" name="estacionamientos" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    
+                                    <label for="estacionamientos">Seleccione un vendedor para la propiedad</label>
+                                    <!-- Still not dynamic yet-->
+                                    <select name="vendedor" class="form-control" required="true">
+                                        <option value="">
+                                            --Seleccione
+                                        </option>
+                                        <option value="1">
+                                            --Opcion1
+                                        </option>
+                                         <option value="1">
+                                            --Opcion2
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imagen">Imagen de la Propiedad</label>
+                                    <input class="form-control" type="file" name="imagenFile"
+                                           onchange="readURL(this);" />
+
+                                </div>
+
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button class="btn btn-success" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!--Section PropertyList: Show all properties List in the Web App-->
+        <section th:fragment="propertyList" id="properties">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <h4>Listado de Propiedades</h4>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <button 
+                            type="button" 
+                            class="btn btn-success px-5 py-2 " 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#addProperty">
+                            <i class="fas fa-plus"></i> 
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div th:if="${properties != null and !properties.empty}">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Correo</th>
+                                        <th>Telefono</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="property, contador : ${properties}">
+                                        <td>[[${contador.count}]]</td>
+                                        <td>[[${property.username}]]</td>
+                                        <td>[[${property.nombre}]]</td>
+                                        <td>[[${property.apellidos}]]</td>
+                                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <a th:href="@{/property/eliminar/}+${property.idProperty}" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                            </a>
+                                            <a th:href="@{/property/modificar/}+${property.idProperty}" class="btn btn-success">
+                                                <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center p-2" th:if="${properties == null or properties.empty}">
+                            <span>Lista Vacia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
