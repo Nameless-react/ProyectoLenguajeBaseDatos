@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/properties")
 public class PropertyController {
@@ -18,6 +20,9 @@ public class PropertyController {
     public PropertyService propertyService;
     @GetMapping("/list")
     public String list(Model model) {
+        List<Property> properties = propertyService.getProperties();
+        System.out.println(properties);
+        model.addAttribute("properties", properties);
         return "/properties/list";
     }
 
@@ -33,16 +38,24 @@ public class PropertyController {
         return "redirect:/property/list";
     }
 
-    @GetMapping("/update/{id_property}")
+    @GetMapping("/update/{idProperty}")
     public String update(Property property, Model model) {
         property = propertyService.getProperty(property.getIdProperty());
         model.addAttribute("property", property);
         return "/properties/update";
     }
 
-    @GetMapping("/delete/{id_property}")
+    @GetMapping("/delete/{idProperty}")
     public String delete(Property property, Model model) {
         propertyService.delete(property.getIdProperty());
         return "redirect:/properties/list";
+    }
+
+
+    @GetMapping("/{idProperty}")
+    public String getOne(Property property, Model model) {
+        property = propertyService.getProperty(property.getIdProperty());
+        model.addAttribute("property", property);
+        return "/properties/property";
     }
 }

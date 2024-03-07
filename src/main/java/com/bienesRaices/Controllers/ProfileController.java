@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/profile")
-public class profileController {
+public class ProfileController {
     @GetMapping("/perfil")
     public String perfil (){
     

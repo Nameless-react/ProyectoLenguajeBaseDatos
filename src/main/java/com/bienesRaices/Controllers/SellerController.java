@@ -8,11 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ *
+ * @author arjoz
+ */
 @Controller
-@RequestMapping("/category")
-public class categoryController {
-    @GetMapping("/categoryList")
-    public String listCategory(){
-        return "/category/list";
+@RequestMapping("/seller")
+public class SellerController {
+      @GetMapping("/sellerList")
+    public String sellerList (){
+     return "/seller/list";
     }
 }

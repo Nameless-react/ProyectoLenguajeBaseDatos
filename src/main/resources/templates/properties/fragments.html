@@ -104,62 +104,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
 
         <!--Section PropertyList: Show all properties List in the Web App-->
-        <section th:fragment="propertyList" id="properties">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-9">
-                        <h4>Listado de Propiedades</h4>
-                    </div>
-                    <div class="col-md-3 text-end">
-                        <button 
-                            type="button" 
-                            class="btn btn-success px-5 py-2 " 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#addProperty">
-                            <i class="fas fa-plus"></i> 
-                        </button>
+        <section th:fragment="propertyList">
+            <div class="properties">
+                <h1>Propiedades</h1>
+                <div class="property" th:each="property : ${properties}">
+                    <img src="https://www.bbva.com/wp-content/uploads/2021/04/casas-ecolo%CC%81gicas_apertura-hogar-sostenibilidad-certificado-.jpg" alt="">
+                    <div class="property-info">
+                        <h3>[[${property.name}]]</h3>
+                        <h4>¢[[${property.price}]]</h4>
+                        <p>Dueño: [[${property.owner}]]</p>
+                        <p>Antigüedad: [[${property.antiquity}]] años</p>
+                        <a th:href="@{/properties/} + ${property.idProperty}">Más información <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div th:if="${properties != null and !properties.empty}">
-                            <table class="table table-striped table-hover">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th>Numero de Baños</th>
-                                        <th>Numero de Habitaciones</th>
-                                        <th>Numero de Estacionamientos</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="property, contador : ${properties}">
-                                        <td>[[${contador.count}]]</td>                                
-                                        <td>[[${property.nombre}]]</td>
-                                        <td>[[${property.precio}]]</td>
-                                        <td>[[${property.wc}]]</td>
-                                        <td>[[${property.habitaciones}]]</td>
-                                        <td>[[${property.estacionamientos}]]</td>
-                                        <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                            <a th:href="@{/property/eliminar/}+${property.idProperty}" class="btn btn-danger">
-                                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
-                                            </a>
-                                            <a th:href="@{/property/modificar/}+${property.idProperty}" class="btn btn-success">
-                                                <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-center p-2" th:if="${properties == null or properties.empty}">
-                            <span>Lista Vacia</span>
-                        </div>
-                    </div>
-                </div>
+            </div>
+
+
+            <div class="text-center p-2" th:if="${properties == null or properties.empty}">
+                <span>Lista Vacia</span>
             </div>
         </section>
     </body>

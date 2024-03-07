@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/user")
-public class usersController {
+public class UsersController {
 
     @GetMapping("/userList")
     public String userList (){

@@ -1,0 +1,67 @@
+.properties {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    margin: 22rem auto;
+    margin-top: 5rem;
+    gap: 3rem;
+}
+
+.property {
+    min-height: 500px;
+    background-color: #eee;
+    padding: 4rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    border-radius: 20px;
+    gap: 6rem;
+}
+
+.property img {
+    max-width: 50%;
+    border-radius: 20px;
+}
+
+.property-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    align-self: flex-start;
+    gap: 1.5rem;
+}
+
+.property-info h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.property-info h4 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.property-info p {
+    font-size: 1rem;
+    font-weight: lighter;
+}
+
+.property-info a {
+    text-decoration: none;
+    color: #fff;
+    padding: .8em 2em;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 20px;
+    background: #3347ff;
+    transition: transform .5s ease;
+    margin-top: 2rem;
+}
+
+.property-info a:hover {
+    transform: scale(1.1);
+}

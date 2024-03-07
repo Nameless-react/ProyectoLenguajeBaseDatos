@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.bienesRaices.Dao.PropertyDao;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,21 +19,26 @@ public class PropertyServiceImpl implements PropertyService {
     private PropertyDao propertyDao;
 
     @Override
+    @Transactional(readOnly = true)
     public Property getProperty(long id) {
         return propertyDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Property> getProperties() {
-        return null;
+        System.out.println(propertyDao.findAll());
+        return propertyDao.findAll();
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
         propertyDao.deleteById(id);
     }
 
     @Override
+    @Transactional
     public void save(Property property) {
         propertyDao.save(property);
     }

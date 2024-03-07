@@ -17,19 +17,22 @@ public class Property implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idProperty;
-    private int idCharacteristics;
-    private int idAgent;
-    private int id_address;
-    private int price;
+    private Long idProperty;
+    private String name;
+    private Integer idCharacteristics;
+    private Integer idAgent;
+    private Integer idAddress;
+    private Double price;
     private String transactionType;
-    private int antiquity;
+    private Integer antiquity;
     private String owner;
 
-    public Property(int idCharacteristics, int idAgent, int id_address, int price, String transactionType, int antiquity, String owner) {
+
+    public Property(Integer idCharacteristics, String name, Integer idAgent, Integer idAddress, Double price, String transactionType, Integer antiquity, String owner) {
         this.idCharacteristics = idCharacteristics;
+        this.name = name;
         this.idAgent = idAgent;
-        this.id_address = id_address;
+        this.idAddress = idAddress;
         this.price = price;
         this.transactionType = transactionType;
         this.antiquity = antiquity;
