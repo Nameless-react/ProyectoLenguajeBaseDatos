@@ -27,7 +27,6 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     @Transactional(readOnly = true)
     public List<Property> getProperties() {
-        System.out.println(propertyDao.findAll());
         return propertyDao.findAll();
     }
 

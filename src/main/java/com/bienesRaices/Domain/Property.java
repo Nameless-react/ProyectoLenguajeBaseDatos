@@ -2,11 +2,12 @@ package com.bienesRaices.Domain;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,20 +20,32 @@ public class Property implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProperty;
     private String name;
-    private Integer idCharacteristics;
-    private Integer idAgent;
-    private Integer idAddress;
+
+    @OneToOne
+    @JoinColumn(name = "idCharacteristics")
+    private Characteristics characteristics;
+
+    @ManyToOne
+    @JoinColumn(name = "idAgent")
+    private Agent agent;
+
+    @OneToOne
+    @JoinColumn(name = "idAddress")
+    private Address address;
     private Double price;
     private String transactionType;
     private Integer antiquity;
     private String owner;
 
+    @OneToMany(mappedBy = "idProperty", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImageProperty> images = new ArrayList<>();
 
-    public Property(Integer idCharacteristics, String name, Integer idAgent, Integer idAddress, Double price, String transactionType, Integer antiquity, String owner) {
-        this.idCharacteristics = idCharacteristics;
+
+    public Property(Characteristics characteristics, String name, Agent agent, Address address, Double price, String transactionType, Integer antiquity, String owner) {
+        this.characteristics = characteristics;
         this.name = name;
-        this.idAgent = idAgent;
-        this.idAddress = idAddress;
+        this.agent = agent;
+        this.address = address;
         this.price = price;
         this.transactionType = transactionType;
         this.antiquity = antiquity;
