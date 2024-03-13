@@ -13,7 +13,7 @@ public interface PropertyService {
     public Property getProperty(long id);
     public List<Property> getProperties();
     public void delete(long id);
-    public void save(Property property);
+    public Property save(Property property);
     Page<Property> getPropertyPage(SpringDataWebProperties.Pageable pageable);
     Page<Property> getPropertyPageBetweenPrice(long initPrice, long finishPrice, Pageable pageable);
 }

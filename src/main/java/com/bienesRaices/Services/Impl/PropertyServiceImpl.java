@@ -38,8 +38,8 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     @Transactional
-    public void save(Property property) {
-        propertyDao.save(property);
+    public Property save(Property property) {
+        return propertyDao.save(property);
     }
 
     @Override

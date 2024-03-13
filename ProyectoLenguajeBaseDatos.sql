@@ -149,9 +149,12 @@ VALUES ('Casa de Ensueño', 1, 1, 1, 250000.00, 'Venta', 10, 'Juan Pérez');
 INSERT INTO Users (password, birth_date, first_sur_name, second_sur_name, name, identification, email, phone, image)
 VALUES ('contrasena123', TO_DATE('1990-01-15', 'YYYY-MM-DD'), 'Pérez', 'Gómez', 'Juan', '123456789', 'juan@example.com', '123-456-7890', 'imagen.jpg');
 
-INSERT INTO ImageProperty (id_property, image)
+INSERT INTO Image_Property (id_property, image)
 VALUES
-(1, 'https://canalhogar.com/wp-content/uploads/2023/10/25-planos-y-Disenos-de-Casas-de-2-Pisos-Modernas.jpg');
+(2, 'https://canalhogar.com/wp-content/uploads/2023/10/25-planos-y-Disenos-de-Casas-de-2-Pisos-Modernas.jpg');
+
+
+COMMIT;
 
 ALTER TABLE ImageProperty
 RENAME TO Image_Property;

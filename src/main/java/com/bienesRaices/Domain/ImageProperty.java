@@ -24,7 +24,7 @@ public class ImageProperty implements Serializable {
 
     private String image;
 
-    public ImageProperty(Integer idProperty, String image) {
+    public ImageProperty(Long idProperty, String image) {
         this.idProperty = idProperty;
         this.image = image;
     }

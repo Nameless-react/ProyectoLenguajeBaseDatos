@@ -1,7 +1,7 @@
 package com.bienesRaices.Controllers;
 
-import com.bienesRaices.Domain.Property;
-import com.bienesRaices.Services.PropertyService;
+import com.bienesRaices.Domain.*;
+import com.bienesRaices.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,24 @@ import java.util.List;
 @RequestMapping("/properties")
 public class PropertyController {
     @Autowired
-    public PropertyService propertyService;
+    private PropertyService propertyService;
+
+    @Autowired
+    private AddressService addressService;
+
+    @Autowired
+    private CharacteristicsService characteristicsService;
+
+
+    @Autowired
+    private AgentService agentService;
+
+    @Autowired
+    private FireBaseStorageService fireBaseStorageService;
+
+    @Autowired
+    private ImagePropertyService imagePropertyService;
+
     @GetMapping("/list")
     public String list(Model model) {
         List<Property> properties = propertyService.getProperties();
@@ -24,14 +41,36 @@ public class PropertyController {
 
     @GetMapping("/new")
     public String newElement(Property property, Model model) {
-        return "/property/update";
+        return "/properties/update";
     }
 
     @PostMapping("/save")
-    public String save(Property property, Model model, @RequestParam("imageFile") MultipartFile imageFile) {
+    public String save(Property property, Model model, @RequestParam("imageFile") MultipartFile[] images) {
+        System.out.println(property.toString());
 
-        propertyService.save(property);
-        return "redirect:/property/list";
+        Address address = addressService.save(property.getAddress());
+        property.setAddress(address);
+
+        Characteristics characteristics = characteristicsService.save(property.getCharacteristics());
+        property.setCharacteristics(characteristics);
+
+
+        Agent agent = agentService.getAgent(property.getAgent().getIdAgent());
+        property.setAgent(agent);
+
+
+        property = propertyService.save(property);
+
+
+        for (MultipartFile image : images) {
+            ImageProperty imageProperty = new ImageProperty(
+                    property.getIdProperty(),
+                    fireBaseStorageService.loadImage(image, "/properties", Long.parseLong(String.valueOf(property.getPrice())))
+            );
+            imagePropertyService.save(imageProperty);
+        }
+
+        return "redirect:/properties/list";
     }
 
     @PutMapping("/update/{idProperty}")

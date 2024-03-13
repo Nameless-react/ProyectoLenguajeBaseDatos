@@ -26,10 +26,10 @@ public class FireBaseStorageServiceImpl implements FireBaseStorageService {
 
 
     @Override
-    public String loadImage(MultipartFile localFile, String folder, Long id) {
+    public String loadImage(MultipartFile localFile, String folder, Long price) {
         try {
             String extension = localFile.getOriginalFilename();
-            String fileName = "img" + this.getNumber(id) + extension;
+            String fileName = "img" + this.getNumber(price) + extension;
 
             File file = this.convertToFile(localFile);
             String URL = this.uploadFile(file, folder, fileName);

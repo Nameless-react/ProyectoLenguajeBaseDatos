@@ -59,7 +59,7 @@
     border-radius: 20px;
     background: #3347ff;
     transition: transform .5s ease;
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 
 .property-info a:hover {
@@ -227,26 +227,118 @@
     margin: 0 auto;
     margin-top: 6rem;
     min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-.add-button {
-    padding: .5em 1em;
-    font-size: 1.8rem;
+.add-button, .button-save-property {
+    padding: .5em .7em;
+    outline: none;
+    font-size: 1.4rem;
     background-color: #45C23E;
+    width: 12%;
     border-radius: 20px;
+    text-align: center;
     font-weight: bold;
     color: #fff;
+    border: none;
+    transform-origin: center;
     text-decoration: none;
     transition: all .5s ease;
 }
 
-.add-button:hover {
-    transform: scale(1.1);
+.add-button:hover, .button-save-property:hover {
+    width: 15%;
     color: #fff;
 }
 
 
+.form-add-property-container {
+    width: 80%;
+    margin: 14.5rem auto;
+}
 
+.form-add-property-container form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    flex-direction: column;
+    background-color: #eee;
+    padding: 3em 4em;
+    border-radius: 20px;
+}
+
+.form-add-property-container form h1 {
+    font-weight: bold;
+}
+
+.form-add-property-container form a {
+    align-self: flex-start;
+    font-size: 3rem;
+    color: #000;
+}
+
+.form-add-property-container form input, .form-add-property-container form select, .form-add-property-container form textarea {
+    border: none;
+    border-radius: 20px;
+    padding: .5em 1em;
+    width: 100%;
+}
+
+.input-form-add-property {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.input-form-add-property label {
+    align-self: flex-start;
+    font-weight: bold;
+}
+
+.form-add-property-container .input-form-add-property:nth-child(12) {
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.input-form-add-property > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+.input-form-add-property .inputs-address {
+    gap: 3rem;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.input-form-add-property .inputs-address div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+/* .button-save-property {
+    outline: none;
+    border: none;
+    font-size: 2rem;
+    padding: .5em 1em;
+    font-weight: bold;
+    background-color: #45C23E;
+    border-radius: 20px;
+    color: #fff;
+} */
 
 @media (max-width: 1000px) {
     .individual-property {
