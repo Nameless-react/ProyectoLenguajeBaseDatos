@@ -4,10 +4,12 @@ import com.bienesRaices.Domain.Address;
 import com.bienesRaices.Services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.bienesRaices.Dao.AddressDao;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressDao addressDao;

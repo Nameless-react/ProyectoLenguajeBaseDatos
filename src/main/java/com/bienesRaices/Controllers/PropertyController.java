@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -41,12 +41,15 @@ public class PropertyController {
 
     @GetMapping("/new")
     public String newElement(Property property, Model model) {
+        model.addAttribute("agents", agentService.getAgents());
         return "/properties/update";
     }
 
     @PostMapping("/save")
     public String save(Property property, Model model, @RequestParam("imageFile") MultipartFile[] images) {
         System.out.println(property.toString());
+        property.getCharacteristics().setGarage(property.getCharacteristics().getGarage() != null);
+        property.getCharacteristics().setPool(property.getCharacteristics().getPool() != null);
 
         Address address = addressService.save(property.getAddress());
         property.setAddress(address);
@@ -61,12 +64,12 @@ public class PropertyController {
 
         property = propertyService.save(property);
 
-
         for (MultipartFile image : images) {
             ImageProperty imageProperty = new ImageProperty(
                     property.getIdProperty(),
-                    fireBaseStorageService.loadImage(image, "/properties", Long.parseLong(String.valueOf(property.getPrice())))
+                    fireBaseStorageService.loadImage(image, "/properties", property.getPrice().longValue() + LocalDateTime.now().getNano())
             );
+            System.out.println(imageProperty);
             imagePropertyService.save(imageProperty);
         }
 

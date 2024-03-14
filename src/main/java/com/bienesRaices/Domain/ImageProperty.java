@@ -20,7 +20,7 @@ public class ImageProperty implements Serializable {
 
 
     @Column(name = "id_property")
-    private Integer idProperty;
+    private Long idProperty;
 
     private String image;
 

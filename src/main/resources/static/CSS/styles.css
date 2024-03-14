@@ -78,11 +78,21 @@
     background: #eee;
     min-height: 50vh;
     margin-bottom: 30rem;
+    position: relative;
+}
+
+.individual-property > a {
+    font-size: 3rem;
+    color: #000;
+    position: absolute;
+    left: 2.5%;
+    top: 3.5%;
 }
 
 .individual-property img {
     width: 50%;
-    border-radius: 20px
+    border-radius: 20px;
+    min-width: 700px
 }
 
 .individual-property .property-more-info {
@@ -329,16 +339,6 @@
     flex-direction: column;
 }
 
-/* .button-save-property {
-    outline: none;
-    border: none;
-    font-size: 2rem;
-    padding: .5em 1em;
-    font-weight: bold;
-    background-color: #45C23E;
-    border-radius: 20px;
-    color: #fff;
-} */
 
 @media (max-width: 1000px) {
     .individual-property {

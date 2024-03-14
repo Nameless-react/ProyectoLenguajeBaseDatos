@@ -53,14 +53,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             </div>
                             <div>
                                 <label for="address">Provincia:</label>
-                                <select id="province" name="province" class="form-control" required="true" th:field="*{address.province}">
+                                <select id="province" name="province" class="form-control" required="true" th:field="*{address.province}" th:onchange>
                                     <option value="0">Seleccione</option>
-                                    <option value="San José">San José</option>
                                     <option value="Cartago">Cartago</option>
+                                    <option value="San José">San José</option>
                                     <option value="Alajuela">Alajuela</option>
                                     <option value="Limón">Limón</option>
                                     <option value="Guanacaste">Guanacaste</option>
                                     <option value="Heredia">Heredia</option>
+                                    <option value="Puntarenas">Puntarenas</option>
                                 </select>
                             </div>
                         </div>
@@ -72,31 +73,31 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
                 <div class="input-form-add-property">
                     <label for="descripcion">Descripción:</label>
-                    <textarea id="descripcion" class="form-control" name="descripcion" rows="5" cols="10" ></textarea>
+                    <textarea id="descripcion" class="form-control" th:field="*{characteristics.description}" rows="5" cols="10" ></textarea>
                 </div>
                 <div class="input-form-add-property">
                     <label for="numberBathrooms">Número de Baños:</label>
-                    <input type="number" class="form-control" name="numberBathrooms" required="true"/>
+                    <input type="number" class="form-control" th:field="*{characteristics.numberBathrooms}" required="true"/>
                 </div>
                 <div class="input-form-add-property">
                     <label for="numberRooms">Número de Habitaciones:</label>
-                    <input type="number" class="form-control" name="numberRooms" id="numberRooms" required="true"/>
+                    <input type="number" class="form-control" th:field="*{characteristics.numberRooms}" id="numberRooms" required="true"/>
                 </div>
                 <div class="input-form-add-property">
                     <div>
                         <label for="pool">Piscina</label>
-                        <input type="checkbox" class="" id="pool" name="pool"/>
+                        <input type="checkbox" id="pool" th:field="*{characteristics.garage}"/>
                     </div>
                     <div>
                         <label for="garage">Cochera</label>
-                        <input type="checkbox" class="" name="garage" id="garage"/>
+                        <input type="checkbox" th:field="*{characteristics.garage}" id="garage"/>
                     </div>
                 </div>
                 <div class="input-form-add-property">
                     <label for="agent">Agente:</label>
-                    <select id="agent" name="agent" class="form-control" required="true" th:field="*{agent.user.name}">
+                    <select id="agent" name="agent" class="form-control" required="true" th:field="*{agent.idAgent}">
                         <option value="0">Seleccione</option>
-                        <option th:each="agent : ${agents}" th:value="${agent.name}"></option>
+                        <option th:each="agent : ${agents}" th:value="${agent.idAgent}">[[${agent.user.name}]] [[${agent.user.firstSurName}]] [[${agent.user.firstSurName}]] ([[${agent.user.identification}]])</option>
                     </select>
                 </div>
                 <div class="input-form-add-property">
@@ -137,6 +138,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </div>
 
         <div th:fragment="property" class="individual-property">
+            <a th:href="@{/properties/list}"><i class="fa-solid fa-arrow-left"></i></a>
             <div class="slideshow-container">
 
                 <div class="mySlides" th:each="image : ${property.images}">

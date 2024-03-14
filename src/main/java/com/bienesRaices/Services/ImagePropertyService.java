@@ -2,10 +2,12 @@ package com.bienesRaices.Services;
 
 import com.bienesRaices.Domain.ImageProperty;
 import com.bienesRaices.Domain.Property;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.util.List;
 
+@Service
 public interface ImagePropertyService {
 
     public ImageProperty getImageProperty(long id);
