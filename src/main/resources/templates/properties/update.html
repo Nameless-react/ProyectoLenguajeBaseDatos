@@ -3,11 +3,48 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{ layout/fragments :: head }">
     <title>Bienes Raices</title>
+   
 </head>
+<script  th:inline="javascript">
+  document.addEventListener("DOMContentLoaded", () => {
+    let imageUploadedContainers = document.querySelectorAll(".uploaded-images-container");
+      
+    imageUploadedContainers.forEach((imageUploadedContainer, index) => {
+       let imageId = imageUploadedContainer.getAttribute("data-imageid");
+       imageIndexMap.set(imageId, index);
+    })
+    let form = document.getElementById("form");
+    let newFileList = new DataTransfer();
+    form.addEventListener("submit", (e) => {
+        let imageUploadedContainers = document.querySelectorAll(".uploaded-images-container");
+        imageUploadedContainers.forEach((container, index) => {
+            let reader = new FileReader();
+  
+  
+  
+            for (let i = 0; i < fileList.length; i++) {
+                if (i !== indexToRemove) {
+                    newFileList.items.add(fileList[i]);
+                }
+    }
+    console.log(newFileList);
+  
+    return newFileList.files;
+  
+        })
+  
+        for (let i = 0; i < selectedFiles.length; i++) {
+            inputFile.files = new FileList([...inputFile.files, selectedFiles[i]]);
+        }
+    })
+  })
+
+</script>
+
 <body>
 <header th:replace="~{layout/fragments :: header}"></header>
 
-<div th:replace="~{properties/fragments :: addProperty}"></div>
+<div th:replace="~{properties/fragments :: editProperty}"></div>
 <footer th:replace="~{ layout/fragments :: footer }"/>
 
 </body>

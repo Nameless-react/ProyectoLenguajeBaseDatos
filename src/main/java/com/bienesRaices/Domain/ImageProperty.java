@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 
 @Data
@@ -23,6 +24,12 @@ public class ImageProperty implements Serializable {
     private Long idProperty;
 
     private String image;
+
+    public String generateImageId() {
+        return String.valueOf(Instant.now().toEpochMilli()) + "_" + String.valueOf(this.idImageProperty);
+    }
+
+
 
     public ImageProperty(Long idProperty, String image) {
         this.idProperty = idProperty;

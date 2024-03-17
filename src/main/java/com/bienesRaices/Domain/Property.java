@@ -41,6 +41,9 @@ public class Property implements Serializable {
     private List<ImageProperty> images = new ArrayList<>();
 
 
+    public int imagesLength() {
+        return images.size();
+    }
     public Property(Characteristics characteristics, String name, Agent agent, Address address, Double price, String transactionType, Integer antiquity, String owner) {
         this.characteristics = characteristics;
         this.name = name;

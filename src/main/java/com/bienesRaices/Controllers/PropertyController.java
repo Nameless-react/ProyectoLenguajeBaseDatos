@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,6 +34,9 @@ public class PropertyController {
     @Autowired
     private ImagePropertyService imagePropertyService;
 
+//    @Autowired
+//    private UserServic user;
+
     @GetMapping("/list")
     public String list(Model model) {
         List<Property> properties = propertyService.getProperties();
@@ -42,7 +47,7 @@ public class PropertyController {
     @GetMapping("/new")
     public String newElement(Property property, Model model) {
         model.addAttribute("agents", agentService.getAgents());
-        return "/properties/update";
+        return "/properties/new";
     }
 
     @PostMapping("/save")
@@ -76,13 +81,37 @@ public class PropertyController {
         return "redirect:/properties/list";
     }
 
-    @PutMapping("/update/{idProperty}")
+    @GetMapping("/update/{idProperty}")
     public String update(Property property, Model model) {
         property = propertyService.getProperty(property.getIdProperty());
         model.addAttribute("property", property);
+        model.addAttribute("agents", agentService.getAgents());
         return "/properties/update";
     }
 
+
+    @GetMapping("/update/")
+    public String updatePut(Property property, Model model, @RequestParam("imageFile") MultipartFile[] images) {
+
+        System.out.println(property);
+
+//        addressService.save(property.getAddress());
+//
+//        characteristicsService.save(property.getCharacteristics());
+//
+//        agentService.save(property.getAgent());
+//
+//        for (ImageProperty image : property.getImages()) {
+//            imagePropertyService.save(image);
+//        }
+//
+//
+//        propertyService.save(property);
+
+
+        return "redirect:/properties/list";
+    }
+// + ${property.idProperty}
     @DeleteMapping("/delete/{idProperty}")
     public String delete(Property property, Model model) {
         propertyService.delete(property.getIdProperty());
@@ -94,6 +123,7 @@ public class PropertyController {
     public String getOne(Property property, Model model) {
         property = propertyService.getProperty(property.getIdProperty());
         model.addAttribute("property", property);
+        model.addAttribute("propertyLength", property.getImages().size());
         return "/properties/property";
     }
 }
