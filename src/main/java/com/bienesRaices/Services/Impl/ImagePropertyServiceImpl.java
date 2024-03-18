@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ImagePropertyServiceImpl implements ImagePropertyService {
@@ -23,8 +24,8 @@ public class ImagePropertyServiceImpl implements ImagePropertyService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ImageProperty> getProperties() {
-        return imagePropertyDao.findAll();
+    public List<ImageProperty> getImagesProperty(long id) {
+        return imagePropertyDao.findAll().stream().filter(image -> image.getIdProperty() == id).toList();
     }
 
     @Override

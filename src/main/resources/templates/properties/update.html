@@ -13,30 +13,6 @@
        let imageId = imageUploadedContainer.getAttribute("data-imageid");
        imageIndexMap.set(imageId, index);
     })
-    let form = document.getElementById("form");
-    let newFileList = new DataTransfer();
-    form.addEventListener("submit", (e) => {
-        let imageUploadedContainers = document.querySelectorAll(".uploaded-images-container");
-        imageUploadedContainers.forEach((container, index) => {
-            let reader = new FileReader();
-  
-  
-  
-            for (let i = 0; i < fileList.length; i++) {
-                if (i !== indexToRemove) {
-                    newFileList.items.add(fileList[i]);
-                }
-    }
-    console.log(newFileList);
-  
-    return newFileList.files;
-  
-        })
-  
-        for (let i = 0; i < selectedFiles.length; i++) {
-            inputFile.files = new FileList([...inputFile.files, selectedFiles[i]]);
-        }
-    })
   })
 
 </script>

@@ -124,3 +124,12 @@ function removeFromFileList(fileList, indexToRemove) {
 
     return newFileList.files;
 }
+
+
+async function deleteProperty(propertyId) {
+  console.log(typeof propertyId)
+  await fetch(`http://localhost:8080/properties/${propertyId}`, {
+    method: "DELETE"
+  })
+  location.reload();
+}

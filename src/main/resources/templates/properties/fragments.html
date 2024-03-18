@@ -83,7 +83,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="input-form-add-property">
                     <div>
                         <label for="pool">Piscina</label>
-                        <input type="checkbox" id="pool" th:field="*{characteristics.garage}"/>
+                        <input type="checkbox" id="pool" th:field="*{characteristics.pool}"/>
                     </div>
                     <div>
                         <label for="garage">Cochera</label>
@@ -129,7 +129,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="options-property">
                         <a th:href="@{/properties/} + ${property.idProperty}">Más información <i class="fa-solid fa-arrow-right"></i></a>
                         <a th:href="@{/properties/update/} + ${property.idProperty}">Editar <i class="fa-solid fa-pen-to-square"></i></a>
-                        <a th:href="@{/properties/delete/} + ${property.idProperty}">Eliminar <i class="fa-solid fa-trash"></i></a>
+                        <button th:attr="onclick='deleteProperty(' + ${property.idProperty} + ')'" >Eliminar <i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
             </div>
@@ -145,7 +145,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <div class="slideshow-container">
 
                 <div class="mySlides" th:each="image : ${property.images}">
-                  <img th:src="${image.image}" style="width:100%">
+                  <img th:src="${image.image}">
                 </div>
 
                 <div class="mySlides" th:if="${propertyLength == 0}">
@@ -183,33 +183,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
         </div>
 
-        <section th:fragment="editProperty" class="form-add-property-container">
+        <section th:fragment="editProperty" class="form-edit-property-container">
 
-            <form th:action="@{/properties/update/}" th:object="${property}" method="get" class="was-validated" id="form" enctype="multipart/form-data">
+            <form th:action="@{/properties/update/}" th:object="${property}" method="post" class="was-validated" id="form" enctype="multipart/form-data">
                 <a th:href="@{/properties/list}"><i class="fa-solid fa-arrow-left"></i></a>
                 <h1>Editar Propiedad</h1>
                 <input type="hidden" th:field="*{idProperty}">
-                <div class="input-form-add-property">
+                <input type="hidden" th:field="*{characteristics.idCharacteristicProperty}">
+                <input type="hidden" th:field="*{address.idAddress}">
+                <div class="input-form-edit-property">
                     <label for="name">Nombre:</label>
                     <input type="text" class="form-control" th:field="*{name}" id="name" required="true"/>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <label for="price">Precio:</label>
                     <input type="number" class="form-control" th:field="*{price}" id="price" required="true"/>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <label for="owner">Dueño:</label>
                     <input type="text" class="form-control" th:field="*{owner}" id="owner" required="true"/>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <label for="transactionType">Tipo de transacción:</label>
                     <input type="text" class="form-control" th:field="*{transactionType}" id="transactionType" required="true"/>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <label for="antiquity">Antigüedad de la construcción</label>
                     <input type="number" class="form-control" th:field="*{antiquity}" id="antiquity" required="true"/>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <div class="inputs-address">
                         <div>
                             <div>
@@ -240,36 +242,36 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </div>
                     </div>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <label for="descripcion">Descripción:</label>
                     <textarea id="descripcion" class="form-control" th:field="*{characteristics.description}" rows="5" cols="10" ></textarea>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <label for="numberBathrooms">Número de Baños:</label>
                     <input type="number" class="form-control" th:field="*{characteristics.numberBathrooms}" required="true"/>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <label for="numberRooms">Número de Habitaciones:</label>
                     <input type="number" class="form-control" th:field="*{characteristics.numberRooms}" id="numberRooms" required="true"/>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <div>
                         <label for="pool">Piscina</label>
-                        <input type="checkbox" id="pool" th:field="*{characteristics.garage}"/>
+                        <input type="checkbox" id="pool" th:field="*{characteristics.pool}"/>
                     </div>
                     <div>
                         <label for="garage">Cochera</label>
                         <input type="checkbox" th:field="*{characteristics.garage}" id="garage"/>
                     </div>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <label for="agent">Agente:</label>
                     <select id="agent" name="agent" class="form-control" required="true" th:field="*{agent.idAgent}">
                         <option value="0">Seleccione</option>
                         <option th:each="agent : ${agents}" th:value="${agent.idAgent}">[[${agent.user.name}]] [[${agent.user.firstSurName}]] [[${agent.user.firstSurName}]] ([[${agent.user.identification}]])</option>
                     </select>
                 </div>
-                <div class="input-form-add-property">
+                <div class="input-form-edit-property">
                     <label for="image">Imagenes de la Propiedad:</label>
                     <input class="form-control" id="image" type="file" name="imageFile" onchange="readURL(this)" multiple />
                     <div class="images-container">

@@ -52,10 +52,6 @@ public class PropertyController {
 
     @PostMapping("/save")
     public String save(Property property, Model model, @RequestParam("imageFile") MultipartFile[] images) {
-        System.out.println(property.toString());
-        property.getCharacteristics().setGarage(property.getCharacteristics().getGarage() != null);
-        property.getCharacteristics().setPool(property.getCharacteristics().getPool() != null);
-
         Address address = addressService.save(property.getAddress());
         property.setAddress(address);
 
@@ -90,32 +86,39 @@ public class PropertyController {
     }
 
 
-    @GetMapping("/update/")
+    @PostMapping("/update/")
     public String updatePut(Property property, Model model, @RequestParam("imageFile") MultipartFile[] images) {
+        Agent agent = agentService.getAgent(property.getAgent().getIdAgent());
+        property.setAgent(agent);
 
+
+
+
+        for (MultipartFile image : images) {
+            ImageProperty imageProperty = new ImageProperty(
+                    property.getIdProperty(),
+                    fireBaseStorageService.loadImage(image, "/properties", property.getPrice().longValue() + LocalDateTime.now().getNano())
+            );
+            imagePropertyService.save(imageProperty);
+        }
+        List<ImageProperty> savedImages = imagePropertyService.getImagesProperty(property.getIdProperty());
+
+        property.setImages(savedImages);
         System.out.println(property);
+        System.out.println(images.length);
 
-//        addressService.save(property.getAddress());
-//
-//        characteristicsService.save(property.getCharacteristics());
-//
-//        agentService.save(property.getAgent());
-//
-//        for (ImageProperty image : property.getImages()) {
-//            imagePropertyService.save(image);
-//        }
-//
-//
-//        propertyService.save(property);
+        addressService.save(property.getAddress());
+        characteristicsService.save(property.getCharacteristics());
 
 
+
+
+        propertyService.save(property);
         return "redirect:/properties/list";
     }
-// + ${property.idProperty}
-    @DeleteMapping("/delete/{idProperty}")
-    public String delete(Property property, Model model) {
+    @DeleteMapping("/{idProperty}")
+    public void delete(Property property, Model model) {
         propertyService.delete(property.getIdProperty());
-        return "redirect:/properties/list";
     }
 
 

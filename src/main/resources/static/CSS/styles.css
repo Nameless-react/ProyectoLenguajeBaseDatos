@@ -22,8 +22,9 @@
 }
 
 .property img {
-    max-width: 50%;
+    width: 50%;
     border-radius: 20px;
+    min-width: 550px;
 }
 
 .property-info {
@@ -50,9 +51,11 @@
     font-weight: lighter;
 }
 
-.property-info a {
+.property-info a, .property-info button {
     text-decoration: none;
     color: #fff;
+    outline: none;
+    border: none;
     padding: .8em 2em;
     font-size: 1.1rem;
     font-weight: bold;
@@ -61,7 +64,7 @@
     transition: transform .5s ease;
 }
 
-.property-info a:hover {
+.property-info a:hover, .property-info button:hover {
     transform: scale(1.1);
 }
 
@@ -152,7 +155,7 @@
 }
 
 .slideshow-container {
-    max-width: 50%;
+    width: 50%;
     position: relative;
 }
   
@@ -240,7 +243,7 @@
 }
 
 
-.options-property a:nth-child(3) {
+.options-property button {
     background-color: #C3423F;
 }
 
@@ -255,11 +258,12 @@
 }
 
 .add-button, .button-save-property {
-    padding: .5em .7em;
+    padding: .5em .9em;
     outline: none;
     font-size: 1.4rem;
     background-color: #45C23E;
     width: 12%;
+    min-width: 150px;
     border-radius: 20px;
     text-align: center;
     font-weight: bold;
@@ -276,12 +280,14 @@
 }
 
 
-.form-add-property-container {
+.form-add-property-container,
+.form-edit-property-container {
     width: 80%;
     margin: 14.5rem auto;
 }
 
-.form-add-property-container form {
+.form-add-property-container form,
+.form-edit-property-container form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -292,24 +298,27 @@
     border-radius: 20px;
 }
 
-.form-add-property-container form h1 {
+.form-add-property-container form h1,
+.form-edit-property-container form h1 {
     font-weight: bold;
 }
 
-.form-add-property-container form a {
+.form-add-property-container form a,
+.form-edit-property-container form a {
     align-self: flex-start;
     font-size: 3rem;
     color: #000;
 }
 
-.form-add-property-container form input, .form-add-property-container form select, .form-add-property-container form textarea {
+.form-add-property-container form input, .form-add-property-container form select, .form-add-property-container form textarea, 
+.form-edit-property-container form input, .form-edit-property-container form select, .form-edit-property-container form textarea {
     border: none;
     border-radius: 20px;
     padding: .5em 1em;
     width: 100%;
 }
 
-.input-form-add-property {
+.input-form-add-property, .input-form-edit-property {
     width: 80%;
     display: flex;
     align-items: center;
@@ -318,17 +327,17 @@
     flex-direction: column;
 }
 
-.input-form-add-property label {
+.input-form-add-property label, .input-form-edit-property label {
     align-self: flex-start;
     font-weight: bold;
 }
 
-.form-add-property-container .input-form-add-property:nth-child(12), .form-edit-property-container .input-form-edit-property:nth-child(13) {
+.form-add-property-container .input-form-add-property:nth-child(12), .form-edit-property-container .input-form-edit-property:nth-child(15) {
     flex-direction: row;
     justify-content: flex-start;
 }
 
-.input-form-add-property > div {
+.input-form-add-property > div, .input-form-edit-property > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -336,13 +345,13 @@
 }
 
 
-.input-form-add-property .inputs-address {
+.input-form-add-property .inputs-address, .input-form-edit-property .inputs-address {
     gap: 3rem;
     width: 100%;
     justify-content: space-between;
 }
 
-.input-form-add-property .inputs-address div {
+.input-form-add-property .inputs-address div, .input-form-edit-property .inputs-address div {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -352,19 +361,23 @@
 }
 
 
-.images-container {
+.input-form-edit-property .images-container, .input-form-add-property .images-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
     gap: 3rem;
     margin-top: 5rem;
+    background-color: #fff;
+    padding: 1em 2em;
 }
 
 .images-container > div {
     width: 25%;
     position: relative;
     height: 100%;
+    min-width: 250px;
+    box-shadow: 4px 4px 5px 0 #0002;
 }
 
 .images-container div img {
@@ -427,5 +440,36 @@
     .options-property {
         flex-direction: column;
         justify-content: flex-start;
+    }
+}
+
+@media (max-width: 1200px) {
+    .property {
+        flex-direction: column;
+    }
+    .properties {
+        width: 90%;
+    }
+    .individual-property {
+        width: 95%;
+        flex-direction: column;
+    }
+
+    .slideshow-container {
+        width: 100%;
+    }
+
+    .individual-property .property-more-info {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1500px) {
+    .properties {
+        width: 90%;
+    }
+
+    .form-edit-property-container, .form-add-property-container {
+        width: 95%;
     }
 }

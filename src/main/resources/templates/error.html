@@ -1,0 +1,13 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/fragments :: head}"></head>
+    <title>¡Algo salió mal!</title>
+    <body>
+        <header th:replace="~{layout/fragments :: header}"></header>
+        <div class="container-error">
+            <h1 class="error-status">Error - <span th:text="${status}">Status</span></h1>
+            <p>Lamentamos el inconveniente. Haz click <a th:href="@{/}">Aquí</a> para volver al inicio</p>
+            <br/>
+        </div>
+        <footer th:replace="~{layout/fragments :: footer}"></footer>
+    </body>
+</html>

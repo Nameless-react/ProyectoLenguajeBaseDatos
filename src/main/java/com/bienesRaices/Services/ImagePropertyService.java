@@ -11,7 +11,7 @@ import java.util.List;
 public interface ImagePropertyService {
 
     public ImageProperty getImageProperty(long id);
-    public List<ImageProperty> getProperties();
+    public List<ImageProperty> getImagesProperty(long id);
     public void delete(long id);
     public void save(ImageProperty imageProperty);
 }
