@@ -84,7 +84,7 @@ CREATE TABLE Property (
     transaction_type VARCHAR2(50),
     antiquity NUMBER,
     owner VARCHAR2(100),
-    FOREIGN KEY (id_characteristics) REFERENCES Characteristics(ID_characteristics),
+    FOREIGN KEY (id_characteristics) REFERENCES Characteristics_Property(id_characteristics),
     FOREIGN KEY (id_agent) REFERENCES Agent(ID_Agent),
     FOREIGN KEY (id_address) REFERENCES Address(ID_Address)
 );
