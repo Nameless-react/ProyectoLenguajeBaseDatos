@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 
 @Controller
 @RequestMapping("/properties")
@@ -38,9 +40,14 @@ public class PropertyController {
 //    private UserServic user;
 
     @GetMapping("/list")
-    public String list(Model model) {
-        List<Property> properties = propertyService.getProperties();
+    public String list(
+            @Param("palabraClave") String palabraClave,
+            @RequestParam(defaultValue = "0")int page,
+            @RequestParam(defaultValue = "5") int size,
+            Model model) {
+        Page<Property> properties = propertyService.getProperties(palabraClave, page, size);
         model.addAttribute("properties", properties);
+        model.addAttribute("palabraClave", palabraClave);
         return "/properties/list";
     }
 

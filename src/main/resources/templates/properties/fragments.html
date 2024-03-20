@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
 
         <section th:fragment="addProperty" class="form-add-property-container">
-           
+
             <form th:action="@{/properties/save}" th:object="${property}" method="POST" class="was-validated" enctype="multipart/form-data">
                 <a th:href="@{/properties/list}"><i class="fa-solid fa-arrow-left"></i></a>
                 <h1>Agregar Propiedad</h1>
@@ -119,24 +119,59 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <!--Section PropertyList: Show all properties List in the Web App-->
         <div th:fragment="propertyList" class="properties">
             <h1>Propiedades</h1>
-            <div class="property" th:each="property : ${properties}">
-                <img th:src="${property.imagesLength()} > 0 ? ${property.images[0].image} : 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg'" alt="">
-                <div class="property-info">
-                    <h3>[[${property.name}]]</h3>
-                    <h4>¢[[${property.price}]]</h4>
-                    <p>Dueño: [[${property.owner}]]</p>
-                    <p>Antigüedad: [[${property.antiquity}]] años</p>
-                    <div class="options-property">
-                        <a th:href="@{/properties/} + ${property.idProperty}">Más información <i class="fa-solid fa-arrow-right"></i></a>
-                        <a th:href="@{/properties/update/} + ${property.idProperty}">Editar <i class="fa-solid fa-pen-to-square"></i></a>
-                        <button th:attr="onclick='deleteProperty(' + ${property.idProperty} + ')'" >Eliminar <i class="fa-solid fa-trash"></i></button>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form th:action="@{/properties/list}" method="get" class="mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="palabraClave" th:value="${palabraClave}" placeholder="Buscar propiedades..."/>
+                                <button type="submit" class="btn btn-primary">Buscar</button>
+                                <input type="button" class="btn btn-secondary " value="Limpiar" onclick="limpiarCampos()" />
+                            </div>
+
+                        </form>
                     </div>
                 </div>
+            </div>
+
+            <div class="property" th:each="property : ${properties}">
+                <img th:src="${property.imagesLength()} > 0 ? ${property.images[0].image} : 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg'" alt="">
+                    <div class="property-info">
+                        <h3>[[${property.name}]]</h3>
+                        <h4>¢[[${property.price}]]</h4>
+                        <p>Dueño: [[${property.owner}]]</p>
+                        <p>Antigüedad: [[${property.antiquity}]] años</p>
+                        <div class="options-property">
+                            <a th:href="@{/properties/} + ${property.idProperty}">Más información <i class="fa-solid fa-arrow-right"></i></a>
+                            <a th:href="@{/properties/update/} + ${property.idProperty}">Editar <i class="fa-solid fa-pen-to-square"></i></a>
+                            <button th:attr="onclick='deleteProperty(' + ${property.idProperty} + ')'" >Eliminar <i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
             </div>
 
 
             <div class="text-center p-2" th:if="${properties == null or properties.empty}">
                 <span>Lista Vacia</span>
+            </div>
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:if="${properties.hasPrevious()}">
+                                    <a class="page-link" th:href="@{/properties/list(page=${properties.previousPageable().pageNumber}, size=${properties.pageable.pageSize})}">Anterior</a>
+                                </li>
+                                <li class="page-item" th:each="page : ${#numbers.sequence(0, properties.totalPages - 1)}">
+                                    <a class="page-link" th:href="@{/properties/list(page=${page}, size=${properties.pageable.pageSize})}" th:text="${page + 1}"></a>
+                                </li>
+                                <li class="page-item" th:if="${properties.hasNext()}">
+                                    <a class="page-link" th:href="@{/properties/list(page=${properties.nextPageable().pageNumber}, size=${properties.pageable.pageSize})}">Siguiente</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -145,153 +180,153 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <div class="slideshow-container">
 
                 <div class="mySlides" th:each="image : ${property.images}">
-                  <img th:src="${image.image}">
+                    <img th:src="${image.image}">
                 </div>
 
                 <div class="mySlides" th:if="${propertyLength == 0}">
-                  <img src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg">
+                    <img src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg">
                 </div>
                 <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-angle-left"></i></a>
                 <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-angle-right"></i></a>
-             
-              
-              <div style="text-align:center">
-                <span class="dot" th:attr="onclick='currentSlide(' + ${counter.count} + ')'" th:each="image, counter: ${property.images}"></span>
-              </div>
+
+
+                <div style="text-align:center">
+                    <span class="dot" th:attr="onclick='currentSlide(' + ${counter.count} + ')'" th:each="image, counter: ${property.images}"></span>
+                </div>
             </div>
             <div class="property-more-info">
                 <h2>[[${property.name}]]</h2>
                 <h4>¢[[${property.price}]]</h4>
-                
+
                 <h5>Dueño: [[${property.owner}]]</h>
-                <h5>Agente encargado: [[${property.agent.user.name}]] [[${property.agent.user.firstSurName}]] [[${property.agent.user.secondSurName}]]</h5>
-                
-                <p>Antigüedad: [[${property.antiquity}]] años</p>
-                <p>Modalidad de transacción: [[${property.transactionType}]]</p>
-                
-                <p>Ubicación: [[${property.address.province}]], [[${property.address.canton}]], [[${property.address.street}]], [[${property.address.othersSigns}]]</p>
-                <hr>
-                <h5>Características:</h5>
-                <p>[[${property.characteristics.description}]]</p>
-                <div class="short-characteristics">
-                    <p><i class="fa-solid fa-toilet"></i> [[${property.characteristics.numberBathrooms}]]</p>
-                    <p><i class="fa-solid fa-bed"></i> [[${property.characteristics.numberRooms}]]</p>
-                    <p th:classappend="${property.characteristics.garage ? 'yes' : 'no'}"><i class="fa-solid fa-warehouse"></i> [[${property.characteristics.garage ? "Si" : "No"}]]</p>
-                    <p th:classappend="${property.characteristics.pool ? 'yes' : 'no'}"><i class="fa-solid fa-water-ladder"></i> [[${property.characteristics.pool ? "Si" : "No"}]]</p>
-                </div>
-                <a class="contact-button" th:href="@{/}">Contactar</a>
-            </div>
-        </div>
+                    <h5>Agente encargado: [[${property.agent.user.name}]] [[${property.agent.user.firstSurName}]] [[${property.agent.user.secondSurName}]]</h5>
 
-        <section th:fragment="editProperty" class="form-edit-property-container">
+                    <p>Antigüedad: [[${property.antiquity}]] años</p>
+                    <p>Modalidad de transacción: [[${property.transactionType}]]</p>
 
-            <form th:action="@{/properties/update/}" th:object="${property}" method="post" class="was-validated" id="form" enctype="multipart/form-data">
-                <a th:href="@{/properties/list}"><i class="fa-solid fa-arrow-left"></i></a>
-                <h1>Editar Propiedad</h1>
-                <input type="hidden" th:field="*{idProperty}">
-                <input type="hidden" th:field="*{characteristics.idCharacteristicProperty}">
-                <input type="hidden" th:field="*{address.idAddress}">
-                <div class="input-form-edit-property">
-                    <label for="name">Nombre:</label>
-                    <input type="text" class="form-control" th:field="*{name}" id="name" required="true"/>
-                </div>
-                <div class="input-form-edit-property">
-                    <label for="price">Precio:</label>
-                    <input type="number" class="form-control" th:field="*{price}" id="price" required="true"/>
-                </div>
-                <div class="input-form-edit-property">
-                    <label for="owner">Dueño:</label>
-                    <input type="text" class="form-control" th:field="*{owner}" id="owner" required="true"/>
-                </div>
-                <div class="input-form-edit-property">
-                    <label for="transactionType">Tipo de transacción:</label>
-                    <input type="text" class="form-control" th:field="*{transactionType}" id="transactionType" required="true"/>
-                </div>
-                <div class="input-form-edit-property">
-                    <label for="antiquity">Antigüedad de la construcción</label>
-                    <input type="number" class="form-control" th:field="*{antiquity}" id="antiquity" required="true"/>
-                </div>
-                <div class="input-form-edit-property">
-                    <div class="inputs-address">
-                        <div>
-                            <div>
-                                <label for="canton">Canton:</label>
-                                <input type="text" class="form-control" th:field="*{address.canton}" id="canton" required="true"/>
-                            </div>
-                            <div>
-                                <label for="street">Calle:</label>
-                                <input type="text" class="form-control" th:field="*{address.street}" id="street" required="true"/>
-                            </div>
-                            <div>
-                                <label for="address">Provincia:</label>
-                                <select id="province" name="province" class="form-control" required="true" th:field="*{address.province}">
-                                    <option value="0">Seleccione</option>
-                                    <option value="Cartago">Cartago</option>
-                                    <option value="San José">San José</option>
-                                    <option value="Alajuela">Alajuela</option>
-                                    <option value="Limón">Limón</option>
-                                    <option value="Guanacaste">Guanacaste</option>
-                                    <option value="Heredia">Heredia</option>
-                                    <option value="Puntarenas">Puntarenas</option>
-                                </select>
-                            </div>
+                    <p>Ubicación: [[${property.address.province}]], [[${property.address.canton}]], [[${property.address.street}]], [[${property.address.othersSigns}]]</p>
+                    <hr>
+                        <h5>Características:</h5>
+                        <p>[[${property.characteristics.description}]]</p>
+                        <div class="short-characteristics">
+                            <p><i class="fa-solid fa-toilet"></i> [[${property.characteristics.numberBathrooms}]]</p>
+                            <p><i class="fa-solid fa-bed"></i> [[${property.characteristics.numberRooms}]]</p>
+                            <p th:classappend="${property.characteristics.garage ? 'yes' : 'no'}"><i class="fa-solid fa-warehouse"></i> [[${property.characteristics.garage ? "Si" : "No"}]]</p>
+                            <p th:classappend="${property.characteristics.pool ? 'yes' : 'no'}"><i class="fa-solid fa-water-ladder"></i> [[${property.characteristics.pool ? "Si" : "No"}]]</p>
                         </div>
-                        <div>
-                            <label for="otherSigns">Otras señas:</label>
-                            <textarea id="otherSigns" class="form-control" th:field="*{address.othersSigns}" rows="5" cols="10" ></textarea>
+                        <a class="contact-button" th:href="@{/}">Contactar</a>
                         </div>
-                    </div>
-                </div>
-                <div class="input-form-edit-property">
-                    <label for="descripcion">Descripción:</label>
-                    <textarea id="descripcion" class="form-control" th:field="*{characteristics.description}" rows="5" cols="10" ></textarea>
-                </div>
-                <div class="input-form-edit-property">
-                    <label for="numberBathrooms">Número de Baños:</label>
-                    <input type="number" class="form-control" th:field="*{characteristics.numberBathrooms}" required="true"/>
-                </div>
-                <div class="input-form-edit-property">
-                    <label for="numberRooms">Número de Habitaciones:</label>
-                    <input type="number" class="form-control" th:field="*{characteristics.numberRooms}" id="numberRooms" required="true"/>
-                </div>
-                <div class="input-form-edit-property">
-                    <div>
-                        <label for="pool">Piscina</label>
-                        <input type="checkbox" id="pool" th:field="*{characteristics.pool}"/>
-                    </div>
-                    <div>
-                        <label for="garage">Cochera</label>
-                        <input type="checkbox" th:field="*{characteristics.garage}" id="garage"/>
-                    </div>
-                </div>
-                <div class="input-form-edit-property">
-                    <label for="agent">Agente:</label>
-                    <select id="agent" name="agent" class="form-control" required="true" th:field="*{agent.idAgent}">
-                        <option value="0">Seleccione</option>
-                        <option th:each="agent : ${agents}" th:value="${agent.idAgent}">[[${agent.user.name}]] [[${agent.user.firstSurName}]] [[${agent.user.firstSurName}]] ([[${agent.user.identification}]])</option>
-                    </select>
-                </div>
-                <div class="input-form-edit-property">
-                    <label for="image">Imagenes de la Propiedad:</label>
-                    <input class="form-control" id="image" type="file" name="imageFile" onchange="readURL(this)" multiple />
-                    <div class="images-container">
-                        <div class="uploaded-images-container" th:attr="data-imageid=${image.generateImageId()}" th:each="image, counter : ${property.images}">
-                            <img class="uploaded-images" th:src="${image.image}" />
-                            <div class="images-options">
-                                <button type="button" th:attr="onclick='deleteImage(\'' + ${image.generateImageId().toString()} + '\')'">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                                
-                            </div>
-                       </div>
-                    </div>
-                </div>
+                        </div>
+
+                        <section th:fragment="editProperty" class="form-edit-property-container">
+
+                            <form th:action="@{/properties/update/}" th:object="${property}" method="post" class="was-validated" id="form" enctype="multipart/form-data">
+                                <a th:href="@{/properties/list}"><i class="fa-solid fa-arrow-left"></i></a>
+                                <h1>Editar Propiedad</h1>
+                                <input type="hidden" th:field="*{idProperty}">
+                                    <input type="hidden" th:field="*{characteristics.idCharacteristicProperty}">
+                                        <input type="hidden" th:field="*{address.idAddress}">
+                                            <div class="input-form-edit-property">
+                                                <label for="name">Nombre:</label>
+                                                <input type="text" class="form-control" th:field="*{name}" id="name" required="true"/>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <label for="price">Precio:</label>
+                                                <input type="number" class="form-control" th:field="*{price}" id="price" required="true"/>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <label for="owner">Dueño:</label>
+                                                <input type="text" class="form-control" th:field="*{owner}" id="owner" required="true"/>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <label for="transactionType">Tipo de transacción:</label>
+                                                <input type="text" class="form-control" th:field="*{transactionType}" id="transactionType" required="true"/>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <label for="antiquity">Antigüedad de la construcción</label>
+                                                <input type="number" class="form-control" th:field="*{antiquity}" id="antiquity" required="true"/>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <div class="inputs-address">
+                                                    <div>
+                                                        <div>
+                                                            <label for="canton">Canton:</label>
+                                                            <input type="text" class="form-control" th:field="*{address.canton}" id="canton" required="true"/>
+                                                        </div>
+                                                        <div>
+                                                            <label for="street">Calle:</label>
+                                                            <input type="text" class="form-control" th:field="*{address.street}" id="street" required="true"/>
+                                                        </div>
+                                                        <div>
+                                                            <label for="address">Provincia:</label>
+                                                            <select id="province" name="province" class="form-control" required="true" th:field="*{address.province}">
+                                                                <option value="0">Seleccione</option>
+                                                                <option value="Cartago">Cartago</option>
+                                                                <option value="San José">San José</option>
+                                                                <option value="Alajuela">Alajuela</option>
+                                                                <option value="Limón">Limón</option>
+                                                                <option value="Guanacaste">Guanacaste</option>
+                                                                <option value="Heredia">Heredia</option>
+                                                                <option value="Puntarenas">Puntarenas</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <label for="otherSigns">Otras señas:</label>
+                                                        <textarea id="otherSigns" class="form-control" th:field="*{address.othersSigns}" rows="5" cols="10" ></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <label for="descripcion">Descripción:</label>
+                                                <textarea id="descripcion" class="form-control" th:field="*{characteristics.description}" rows="5" cols="10" ></textarea>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <label for="numberBathrooms">Número de Baños:</label>
+                                                <input type="number" class="form-control" th:field="*{characteristics.numberBathrooms}" required="true"/>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <label for="numberRooms">Número de Habitaciones:</label>
+                                                <input type="number" class="form-control" th:field="*{characteristics.numberRooms}" id="numberRooms" required="true"/>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <div>
+                                                    <label for="pool">Piscina</label>
+                                                    <input type="checkbox" id="pool" th:field="*{characteristics.pool}"/>
+                                                </div>
+                                                <div>
+                                                    <label for="garage">Cochera</label>
+                                                    <input type="checkbox" th:field="*{characteristics.garage}" id="garage"/>
+                                                </div>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <label for="agent">Agente:</label>
+                                                <select id="agent" name="agent" class="form-control" required="true" th:field="*{agent.idAgent}">
+                                                    <option value="0">Seleccione</option>
+                                                    <option th:each="agent : ${agents}" th:value="${agent.idAgent}">[[${agent.user.name}]] [[${agent.user.firstSurName}]] [[${agent.user.firstSurName}]] ([[${agent.user.identification}]])</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-form-edit-property">
+                                                <label for="image">Imagenes de la Propiedad:</label>
+                                                <input class="form-control" id="image" type="file" name="imageFile" onchange="readURL(this)" multiple />
+                                                <div class="images-container">
+                                                    <div class="uploaded-images-container" th:attr="data-imageid=${image.generateImageId()}" th:each="image, counter : ${property.images}">
+                                                        <img class="uploaded-images" th:src="${image.image}" />
+                                                        <div class="images-options">
+                                                            <button type="button" th:attr="onclick='deleteImage(\'' + ${image.generateImageId().toString()} + '\')'">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
 
-                <button class="button-save-property" >Guardar</button>
-            </form>
-        </section>
+                                            <button class="button-save-property" >Guardar</button>
+                                            </form>
+                                            </section>
 
 
-    </body>
-</html>
+                                            </body>
+                                            </html>

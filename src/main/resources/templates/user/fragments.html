@@ -27,39 +27,72 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     data-bs-dismiss="modal" 
                                     aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/user/guardar}" th:object="${user}"
+                        <form th:action="@{/user/save}" th:object="${user}"
                               method="POST" class="was-validated"
                               enctype="multipart/form-data">
                             <div class="modal-body">
+
+
                                 <div class="mb-3">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" required="true"/>
+                                    <label for="name">Nombre</label>
+                                    <input 
+                                        type="text" class="form-control"
+                                        name="name"  required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="apellidos">Apellidos</label>
-                                    <input type="text" class="form-control" name="apellidos" required="true"/>
+                                    <label for="firstSurName">Primer Apellido</label>
+                                    <input 
+                                        type="text" class="form-control" 
+                                        name="firstSurName"  required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="username">Nombre de usuario</label>
-                                    <input type="text" class="form-control" name="username" required="true"/>
+                                    <label for="secondSurName">Segundo Apellido</label>
+                                    <input 
+                                        type="text" class="form-control" 
+                                        name="secondSurName"  required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="identification">Identificación</label>
+                                    <input 
+                                        type="text" class="form-control" 
+                                        name="identification"  required="true"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email">Correo</label>
+                                    <input 
+                                        type="email" class="form-control" 
+                                        name="email" required="true"/>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password">Contraseña</label>
-                                    <input type="password" class="form-control" name="password" required="true"/>
+                                    <input 
+                                        type="password" class="form-control" 
+                                        name="password" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email">Correo</label>
-                                    <input type="email" class="form-control" name="correo" required="true"/>
+                                    <label for="fragments">Telefono</label>
+                                    <input 
+                                        type="tel" class="form-control"
+                                        name="fragments"  />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="telefono">Telefono</label>
-                                    <input type="tel" class="form-control" name="telefono"/>
+                                    <label for="birthDate">Fecha de Nacimiento</label>
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        name="birthDate"
+                                        min="1920-01-01"
+                                        max="2006-01-01"
+                                        required="true"
+                                        />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="imagen">Imagen de Usuario</label>
-                                    <input class="form-control" type="file" name="imagenFile"
+                                    <label for="image">Imagen de Usuario</label>
+                                    <input class="form-control" type="file" 
+                                           name="imagenFile"
                                            onchange="readURL(this);" />
-                                   
+
                                 </div>
 
                             </div>
@@ -80,6 +113,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="col-md-6">
                         <h4>Listado de Usuarios</h4>
                     </div>
+
                     <div class="col-md-6 text-end">
                         <button 
                             type="button" 
@@ -97,24 +131,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <thead class="table-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th>username</th>
-                                        <th>nombre</th>
-                                        <th>apellidos</th>                                      
+
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
+                                        <th>Identifiacion</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="user, contador : ${users}">
                                         <td>[[${contador.count}]]</td>
-                                        <td>[[${user.username}]]</td>
-                                        <td>[[${user.nombre}]]</td>
-                                        <td>[[${user.apellidos}]]</td>
+                                        <td>[[${user.name}]]</td>
+                                        <td>[[${user.firstSurName}]] [[${user.secondSurName}]]</td>
+                                        <td>[[${user.identification}]]</td>
                                         <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                            <a th:href="@{/user/eliminar/}+${user.idUsuario}" class="btn btn-danger">
-                                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                            <a th:href="@{/user/delete/{idUser}(idUser=${user.idUser})}" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i> Eliminar
                                             </a>
-                                            <a th:href="@{/user/modificar/}+${user.idUsuario}" class="btn btn-success">
-                                                <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                            <div id="errorMessage" style="display: none;" class="alert alert-danger mt-3"></div>
+                                            <a th:href="@{/user/modify/}+${user.idUser}" class="btn btn-primary">
+                                                <i class="fas fa-pencil"></i> Actualizar
                                             </a>
                                         </td>
                                     </tr>
@@ -128,5 +164,137 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
             </div>
         </section>
+
+        <!-- 4 Fragmento que se utiliza en la página modifca.html -->
+        <section th:fragment="modifyUser">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/user/save}" th:object="${user}"
+                          class="was-validated"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="idUser" th:field="*{idUser}"/>
+                        <section th:replace="~{user/fragments :: botonesEditar}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>Actualizar Usuario</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="name">Nombre</label>
+                                                    <input 
+                                                        type="text" class="form-control"
+                                                        name="name" th:field="*{name}" required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="firstSurName">Primer Apellido</label>
+                                                    <input 
+                                                        type="text" class="form-control" 
+                                                        name="firstSurName" th:field="*{firstSurName}" required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="secondSurName">Segundo Apellido</label>
+                                                    <input 
+                                                        type="text" class="form-control" 
+                                                        name="secondSurName" th:field="*{secondSurName}" required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="identification">Identificación</label>
+                                                    <input 
+                                                        type="text" class="form-control" 
+                                                        name="identification" th:field="*{identification}" required="true"/>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="email">Correo</label>
+                                                    <input 
+                                                        type="email" class="form-control" 
+                                                        name="email" th:field="*{email}" required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="phone">Telefono</label>
+                                                    <input 
+                                                        type="tel" class="form-control"
+                                                        name="phone" th:field="*{phone}" />
+                                                </div>
+
+
+                                                <div class="mb-3">
+                                                    <label for="image">Imagen de Usuario</label>
+                                                    <input class="form-control" type="file" 
+                                                           name="imagenFile"
+                                                           onchange="readURL(this);" />
+
+                                                </div>
+
+
+                                                <!-- comment -->                                                                                                                                                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/user/userList}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Volver
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid" sec:authorize="hasRole('ROLE_ADMIN')">                                
+                        <a th:href="@{/user/delete/}+${user.idUser}"
+                           class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script th:inline="javascript">
+            function deleteUser(id) {
+                if (confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
+                    fetch('/user/delete/' + id, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Error al eliminar el usuario');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                // La solicitud fue exitosa, puedes hacer algo si es necesario
+                                // Por ejemplo, actualizar la lista de usuarios
+                                window.location.reload();
+                            })
+                            .catch(error => {
+                                // Mostrar el mensaje de error
+                                document.getElementById('errorMessage').innerText = error.message;
+                                document.getElementById('errorMessage').style.display = 'block';
+                            });
+                }
+            }
+        </script>
     </body>
 </html>
