@@ -6,19 +6,18 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Data
-@NoArgsConstructor
+
 @Entity
 @Table(name = "Users")
-public class User  implements Serializable {
+public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
 
     private String name;
@@ -31,15 +30,14 @@ public class User  implements Serializable {
     private LocalDate birthDate;
     private String password;
 
-    public User(String name, String firstSurName, String secondSurName, String identification, String email, String phone, String image, LocalDate birthDate, String password) {
-        this.name = name;
-        this.firstSurName = firstSurName;
-        this.secondSurName = secondSurName;
-        this.identification = identification;
-        this.email = email;
-        this.phone = phone;
-        this.image = image;
-        this.birthDate = birthDate;
-        this.password = password;
-    }
+    @OneToMany
+    @JoinColumn(name = "id_usuario", updatable = false)
+    private List<Rol> roles;
+
+
+    public User() {
+    this.idUser = Long.parseLong(RandomIdGenerator.generateRandomId());
 }
+}
+
+

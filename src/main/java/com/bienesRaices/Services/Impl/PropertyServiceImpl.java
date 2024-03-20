@@ -12,6 +12,7 @@ import com.bienesRaices.Dao.PropertyDao;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import org.springframework.data.domain.PageRequest;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {
@@ -50,5 +51,15 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public Page<Property> getPropertyPageBetweenPrice(long initPrice, long finishPrice, Pageable pageable) {
         return null;
+    }
+
+    @Override
+    public Page<Property> getProperties(String word, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        if (word != null && !word.isEmpty()) {
+             return propertyDao.findByNameContainingIgnoreCase(word, pageRequest);
+        }else{
+               return propertyDao.findAll(pageRequest);
+        }
     }
 }
