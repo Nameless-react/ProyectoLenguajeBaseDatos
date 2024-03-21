@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.Random;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -47,7 +50,6 @@ public class UsersController {
     public String usuarioGuardar(User user,
             @RequestParam("imagenFile") MultipartFile imagenFile) {
         if (!imagenFile.isEmpty()) {
-          
 
             userService.save(user, false);
             user.setImage(
@@ -62,11 +64,21 @@ public class UsersController {
         userService.save(user, true);
         return "redirect:/user/userList";
     }
-
+    //Try to delete a user using hi id
     @GetMapping("/delete/{idUser}")
-    public String userDelete(User user) {
-
-        userService.delete(user);
+    //With sendind a RQedirect Atributes to can manage the errors or the succsess event
+    public String userDelete(@PathVariable Long idUser, RedirectAttributes redirectAttributes) {
+        //if the user has no role specified in the table rol and the user exists then try
+        try {
+            User user = userService.findById(idUser);
+            userService.delete(user);
+            //and redirect the user to  message that alert when the user can be deleted
+            redirectAttributes.addFlashAttribute("successMessage", "Usuario eliminado correctamente");
+        } catch (DataIntegrityViolationException e) {
+            //when the user cant be deleted because he has a rol specified in the table rol then we goin to send a alert to the admin user
+            //that he cant delete the user by a flasshAtribute
+            redirectAttributes.addFlashAttribute("errorMessage", "No se puede eliminar el usuario debido a restricciones de integridad referencial");
+        }
         return "redirect:/user/userList";
     }
 
