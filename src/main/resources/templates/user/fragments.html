@@ -113,7 +113,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="col-md-6">
                         <h4>Listado de Usuarios</h4>
                     </div>
-
+                    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                        <span th:text="${successMessage}"></span>
+                    </div>
+                    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                        <span th:text="${errorMessage}"></span>
+                    </div>
                     <div class="col-md-6 text-end">
                         <button 
                             type="button" 
@@ -145,10 +150,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                         <td>[[${user.firstSurName}]] [[${user.secondSurName}]]</td>
                                         <td>[[${user.identification}]]</td>
                                         <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                            <a th:href="@{/user/delete/{idUser}(idUser=${user.idUser})}" class="btn btn-danger">
+                                            <a th:href="@{/user/delete/}+${user.idUser}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i> Eliminar
                                             </a>
-                                            <div id="errorMessage" style="display: none;" class="alert alert-danger mt-3"></div>
+
                                             <a th:href="@{/user/modify/}+${user.idUser}" class="btn btn-primary">
                                                 <i class="fas fa-pencil"></i> Actualizar
                                             </a>
@@ -268,33 +273,5 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
         </section>
 
-        <script th:inline="javascript">
-            function deleteUser(id) {
-                if (confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
-                    fetch('/user/delete/' + id, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Error al eliminar el usuario');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                // La solicitud fue exitosa, puedes hacer algo si es necesario
-                                // Por ejemplo, actualizar la lista de usuarios
-                                window.location.reload();
-                            })
-                            .catch(error => {
-                                // Mostrar el mensaje de error
-                                document.getElementById('errorMessage').innerText = error.message;
-                                document.getElementById('errorMessage').style.display = 'block';
-                            });
-                }
-            }
-        </script>
     </body>
 </html>
