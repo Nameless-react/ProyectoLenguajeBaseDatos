@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/fragments :: head }">
+        
+        <title>Bienes Raices</title>
+    </head>
+    <body>
+        <header th:replace="~{ layout/fragments :: header }"/>
+
+        <section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark" style="min-height: 100vh; background-size: cover; background-image: url(https://wallpapers.com/images/hd/modern-real-estate-buildings-aav0chf7p2uhgxsl.jpg);">
+            <div class="container-fluid">
+                <div class="row  justify-content-center align-items-center d-flex-row text-center h-100">
+                    <div class="col-12 col-md-4 col-lg-3   h-50 ">
+                        <div class="card shadow">
+                            <div class="card-body mx-auto">
+                                <h4 class="card-title mt-3 text-center">Inicio de Sesion</h4>
+                                <p class="text-center">Bienvenido, por favor inicia sesion</p>
+
+                                <form method="POST" th:action="@{/login}">
+                                 
+                                    <div class="form-group input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                        </div>
+                                        <input name="username" id="username" class="form-control" placeholder="Email address" type="text"/>
+                                    </div>
+         
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text mr-2"> <i class="fa fa-lock"></i> </span>
+                                        </div>
+                                        <input class="form-control" placeholder="Password" name="password" id="password" type="password"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block mt-3">Sign In </button>
+                                    </div>
+                                    <p class="text-center">Aun no tienes una cuenta?
+                                        <a href="/signUp/new">Registrate Aquí</a>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer th:replace="~{ layout/fragments :: footer }"/>
+    </body>
+</html>

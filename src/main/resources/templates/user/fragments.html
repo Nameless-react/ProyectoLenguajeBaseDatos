@@ -149,7 +149,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                         <td>[[${user.name}]]</td>
                                         <td>[[${user.firstSurName}]] [[${user.secondSurName}]]</td>
                                         <td>[[${user.identification}]]</td>
-                                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <td>
                                             <a th:href="@{/user/delete/}+${user.idUser}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i> Eliminar
                                             </a>

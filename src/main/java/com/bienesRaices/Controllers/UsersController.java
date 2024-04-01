@@ -4,7 +4,7 @@
  */
 package com.bienesRaices.Controllers;
 
-import com.bienesRaices.Domain.User;
+import com.bienesRaices.Domain.Users;
 import com.bienesRaices.Services.FireBaseStorageService;
 import com.bienesRaices.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class UsersController {
     }
 
     @GetMapping("/new")
-    public String usuarioNuevo(User user) {
+    public String usuarioNuevo(Users user) {
         return "/user/modify";
     }
 
@@ -47,7 +47,7 @@ public class UsersController {
     private FireBaseStorageService firebaseStorageService;
 
     @PostMapping("/save")
-    public String usuarioGuardar(User user,
+    public String usuarioGuardar(Users user,
             @RequestParam("imagenFile") MultipartFile imagenFile) {
         if (!imagenFile.isEmpty()) {
 
@@ -70,7 +70,7 @@ public class UsersController {
     public String userDelete(@PathVariable Long idUser, RedirectAttributes redirectAttributes) {
         //if the user has no role specified in the table rol and the user exists then try
         try {
-            User user = userService.findById(idUser);
+            Users user = userService.findById(idUser);
             userService.delete(user);
             //and redirect the user to  message that alert when the user can be deleted
             redirectAttributes.addFlashAttribute("successMessage", "Usuario eliminado correctamente");
@@ -83,7 +83,7 @@ public class UsersController {
     }
 
     @GetMapping("/modify/{idUser}")
-    public String modifyUser(User user, Model model) {
+    public String modifyUser(Users user, Model model) {
         user = userService.getUser(user);
         model.addAttribute("user", user);
         return "/user/modify";

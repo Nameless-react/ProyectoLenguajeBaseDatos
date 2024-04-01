@@ -66,9 +66,8 @@ public class PropertyController {
         property.setCharacteristics(characteristics);
 
 
-        Agent agent = agentService.getAgent(property.getAgent().getIdAgent());
+        Agent agent = agentService.getAgentId(property.getAgent().getIdAgent());
         property.setAgent(agent);
-
 
         property = propertyService.save(property);
 
@@ -95,7 +94,7 @@ public class PropertyController {
 
     @PostMapping("/update/")
     public String updatePut(Property property, Model model, @RequestParam("imageFile") MultipartFile[] images) {
-        Agent agent = agentService.getAgent(property.getAgent().getIdAgent());
+        Agent agent = agentService.getAgentId(property.getAgent().getIdAgent());
         property.setAgent(agent);
 
 

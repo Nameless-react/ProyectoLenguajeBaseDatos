@@ -110,14 +110,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </form>
         </section>
 
-
-        <div class="add-button-container" th:fragment="addButton">
+     
+        <div class="add-button-container" sec:authorize="hasRole('ROLE_ADMIN')"  th:fragment="addButton">
             <a th:href="@{/properties/new}" class="add-button">Agregar +</a>
         </div>
 
 
         <!--Section PropertyList: Show all properties List in the Web App-->
         <div th:fragment="propertyList" class="properties">
+             
             <h1>Propiedades</h1>
             <div class="container">
                 <div class="row justify-content-center">
@@ -142,9 +143,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <p>Dueño: [[${property.owner}]]</p>
                         <p>Antigüedad: [[${property.antiquity}]] años</p>
                         <div class="options-property">
-                            <a th:href="@{/properties/} + ${property.idProperty}">Más información <i class="fa-solid fa-arrow-right"></i></a>
-                            <a th:href="@{/properties/update/} + ${property.idProperty}">Editar <i class="fa-solid fa-pen-to-square"></i></a>
-                            <button th:attr="onclick='deleteProperty(' + ${property.idProperty} + ')'" >Eliminar <i class="fa-solid fa-trash"></i></button>
+                            <a   th:href="@{/properties/} + ${property.idProperty}">Más información <i class="fa-solid fa-arrow-right"></i></a>
+                            <a  sec:authorize="hasRole('ROLE_ADMIN')"  th:href="@{/properties/update/} + ${property.idProperty}">Editar <i class="fa-solid fa-pen-to-square"></i></a>
+                            <button sec:authorize="hasRole('ROLE_ADMIN')"  th:attr="onclick='deleteProperty(' + ${property.idProperty} + ')'" >Eliminar <i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
             </div>

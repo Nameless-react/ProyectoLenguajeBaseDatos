@@ -11,13 +11,14 @@ import java.util.List;
 
 @Service
 public class AgentServiceImpl implements AgentService {
+
     @Autowired
     private AgentDao agentDao;
 
     @Override
     @Transactional(readOnly = true)
-    public Agent getAgent(long id) {
-        return agentDao.findById(id).orElse(null);
+    public Agent getAgent(Agent agent) {
+        return agentDao.findById(agent.getIdAgent()).orElse(null);
     }
 
     @Override
@@ -28,13 +29,20 @@ public class AgentServiceImpl implements AgentService {
 
     @Override
     @Transactional
-    public void delete(long id) {
-        agentDao.deleteById(id);
+    public Agent save(Agent agent) {
+
+        return agentDao.save(agent);
+    }
+
+    @Override
+    public Agent getAgentId(long id) {
+        return agentDao.findById(id).orElse(null);
     }
 
     @Override
     @Transactional
-    public Agent save(Agent agent) {
-        return agentDao.save(agent);
+    public void delete(Agent agent) {
+        agentDao.delete(agent);
     }
+
 }

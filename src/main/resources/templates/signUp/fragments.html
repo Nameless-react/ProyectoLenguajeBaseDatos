@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Bienes Raices</title>
+    </head>
+    <body>
+        <!-- 1 Fragmento que se utiliza en la página para regresar -->
+
+        <section th:fragment="nuevoUsuario" class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark" style="min-height: 100vh; background-size: cover; background-image: url(https://wallpapers.com/images/hd/modern-real-estate-buildings-aav0chf7p2uhgxsl.jpg);">
+            <div class="container-fluid">
+                <div class="row  justify-content-center align-items-center d-flex-row text-center h-100">
+
+                    <div class="col-12 col-md-4 col-lg-3   h-50 ">
+                        <div class="card shadow">
+                            <div class="card-body mx-auto">
+                                <h4 class="card-title mt-3 text-center">Registro</h4>
+                                <p class="text-center">Por favor, ingrese los datos para continuar con el registro</p>
+
+                                <form method="POST" th:action="@{/signUp/createUser}" th:object="${users}" class="was-validated">
+
+                                    <div class="form-group input-group mb-2">
+                                        <input name="name" class="form-control" placeholder="Nombre" th:field="*{name}" type="text" required="true"/>
+                                    </div>
+
+                                    <div class="form-group input-group mb-2">
+                                        <input name="first_sur_name" class="form-control" placeholder="Primer Apellido" th:field="*{firstSurName}"  type="text" required="true"/>
+                                    </div>
+
+                                    <div class="form-group input-group mb-2">
+                                        <input name="second_sur_name" class="form-control" placeholder="Segundo Apellido"  th:field="*{secondSurName}" type="text" required="true"/>
+                                    </div>
+
+                                    <div class="form-group input-group mb-2">
+                                        <input name="email" class="form-control" placeholder="Email address" type="email" h:field="*{email}"  required="true"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block mt-3">Sign Up</button>
+                                    </div>
+                                    <p class="text-center">Ya tienes una cuenta?
+                                        <a  th:href="@{/signIn}" >Inicia Sesion Aqui</a>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 2 Fragmento que se utiliza activar un usuario -->
+        <section th:fragment="activarUsuario" class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark" style="min-height: 100vh; background-size: cover; background-image: url(https://wallpapers.com/images/hd/modern-real-estate-buildings-aav0chf7p2uhgxsl.jpg);" >
+
+            <div class="container-fluid">
+                <div class="row  justify-content-center align-items-center d-flex-row text-center h-100">
+                    <div class="col-12 col-md-4 col-lg-3   h-50 ">
+                        <div class="card shadow">
+                            <div class="card-body mx-auto">
+                                <h4 class="card-title mt-3 text-center">Activacion</h4>
+                                <p class="text-center">Por favor, ingrese los datos completos para activar la cuenta</p>
+                                <form method="POST" th:action="@{/signUp/activate}" th:object="${user}" class="was-validated" enctype="multipart/form-data">
+                                    <input type="hidden" name="idUser" th:field="*{idUser}"/>
+                                    <div class="form-group mb-2">
+                                        <label>Nombre</label>
+                                        <input name="name" class="form-control" placeholder="Nombre" th:field="*{name}" type="text"/>
+                                    </div>
+
+                                    <div class="form-group  mb-2">
+                                        <label>Primer Apellido</label>
+                                        <input name="first_sur_name" class="form-control" placeholder="Primer Apellido" th:field="*{firstSurName}"  type="text"  required="true"/>
+                                    </div>
+
+                                    <div class="form-group mb-2">
+                                        <label>Segundo Apellido</label>
+                                        <input name="second_sur_name" class="form-control" placeholder="Segundo Apellido"  th:field="*{secondSurName}" type="text"  required="true"/>
+                                    </div>
+                                     <div class="form-group mb-2">
+                                        <label>Email</label>
+                                        <input name="email" class="form-control" placeholder="Email"  th:field="*{email}" type="email"  required="true"/>
+                                    </div>
+                                    <div class="form-group  mb-2">
+                                        <label>Identificacion</label>
+                                        <input name="identification" class="form-control" placeholder="Identificacion nacional" type="number" h:field="*{identification}"   required="true"/>
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label>Telefono</label>
+                                        <input name="phone" class="form-control" placeholder="Telefono" type="number" h:field="*{phone}"  required="true" />
+                                    </div>
+                                    <div class="form-group  mb-2">
+                                        <label>Fecha de cumpleaños</label>
+                                        <input name="birthDate" class="form-control"  type="date" h:field="*{birthDate}"  required="true" />
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label>Contraseña</label>
+                                        <input name="password" class="form-control"  type="password" h:field="*{password}"  required="true"/>
+                                    </div>
+
+                                    <div class="form-group  mb-2">
+                                        <label for="image">Subir imagen</label>
+                                        <input class="form-control" type="file" name="imageFile" onchange="readURL(this);" />
+                                        <!-- comment <img id="blah" th:src="@{${usuario.rutaImagen}}" alt="your image" height="200"/>-->
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block mt-3">Activate Acount</button>
+                                    </div>
+                                    <p class="text-center">Ya tienes una cuenta?
+                                        <a  th:href="@{/signIn}" >Inicia Sesion Aqui</a>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Fragmento que se utiliza recordar un usuario -->
+        <section th:fragment="recordarUsuario">
+            <div class="row py-2 justify-content-center">
+                <div class="col-md-3">
+                    <section>
+                        <div class="col-md-4 d-grid">
+                            <a th:href="@{/login}" class="btn btn-primary">
+                                <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="row py-2 justify-content-center">
+                <div class="col-md-3">
+                    <form method="POST"
+                          th:action="@{/registro/recordarUsuario}" th:object="${usuario}"
+                          class="was-validated">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{registro.recordar.us}]]</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="username">[[#{usuario.username}]]</label>
+                                    <input type="text" class="form-control" name="username" th:field="*{username}"/></div>                                                
+                                <div class="mb-3">
+                                    <label for="email">[[#{usuario.correo}]]</label>
+                                    <input type="email" class="form-control" name="correo" th:field="*{correo}"/></div>
+                            </div>
+                            <div class="card-footer text-end">                                                
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-address-card"></i> [[#{registro.recordar.us}]]
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

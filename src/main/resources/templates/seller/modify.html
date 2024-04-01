@@ -11,19 +11,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <header th:replace="~{layout/fragments :: header}"></header>
-        <section th:replace="~{seller/fragments :: addSeller}"></section>
-        <section th:replace="~{seller/fragments :: sellerList}"></section>
+        
+         <section th:replace="~{seller/fragments :: modifyAgent}"></section>
         <footer th:replace="~{ layout/fragments :: footer }"/>
-        <script  th:inline="javascript">
 
-            $(document).ready(function () {
-                $('#userSelect').change(function () {
-                    var selectedUserId = $(this).val();
-                    $('input[name="user.idUser"]').val(selectedUserId);
-                });
-            });
-
-        </script>
     </body>
-
 </html>

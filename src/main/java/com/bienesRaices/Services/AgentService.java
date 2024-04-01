@@ -8,8 +8,12 @@ import java.util.List;
 
 @Service
 public interface AgentService {
-    public Agent getAgent(long id);
+    public Agent getAgent(Agent agent);
+    public Agent getAgentId (long id);
     public List<Agent> getAgents();
-    public void delete(long id);
+    
+ // Se elimina el usuario que tiene el id pasado por parámetro
+    public void delete(Agent agent);
+    
     public Agent save(Agent agent);
 }
