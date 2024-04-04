@@ -55,7 +55,7 @@ public class UsersController {
             user.setImage(
                     firebaseStorageService.loadImage(
                             imagenFile,
-                            "user",
+                            "/user",
                             user.getIdUser())
             );
 
