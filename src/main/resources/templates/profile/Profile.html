@@ -18,12 +18,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <div class="justify-content-center">
                 <div class="col-md-auto">
                     <div class=" bg-secondary">
-                        <div class="d-flex align-items-center">
-                            <img src="/img/ejemplo.jpg" height="200" class="rounded-circle mr-4mt-2 mb-2" style="margin: 10px" /> 
-                            <div style="margin-left: 8px">
-                                <h4 class=" mb-0">Nombre Apellidos</h4>
-                                <p class="mb-2 mt-2">Correo</p>
-                                <p class="">Teléfono</p>
+                        <div class="d-flex align-items-center" style=" background-color: #363636;">
+                            <img  th:src="${#authentication.principal.image} == null ? 'https://urgenciesveterinaries.com/wp-content/uploads/2023/09/survet-gato-caida-pelo-01.jpeg' : ${#authentication.principal.image}" height="200" style="object-fit: cover; aspect-ratio: 1/1; margin: 10px" class="rounded-circle"/>
+                            
+                            <div style="margin-left: 8px" class="text-white" >
+                                <h5 th:text=" 'Nombre: ' + ${#authentication.principal.name}  + ' '+ ${#authentication.principal.firstSurName}  + ' '+ ${#authentication.principal.secondSurName}" class="  mb-0">Nombre Apellidos</h5>
+                                <p th:text=" 'Correo: ' + ${#authentication.principal.username}" class="mb-2 mt-2">Correo</p>
+                                <p class=""  th:text=" 'Telefono: ' + ${#authentication.principal.phone}">Teléfono</p>
                                 <a href="#" class="btn btn-dark">
                                     <i class="fa-solid fa-gear fa-lg mr-2"></i> Editar Perfil
                                 </a>

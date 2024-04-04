@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Users")
-public class User implements Serializable {
+public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,13 +31,15 @@ public class User implements Serializable {
     private String password;
 
     @OneToMany
-    @JoinColumn(name = "id_usuario", updatable = false)
+    @JoinColumn(name = "id_user", updatable = false)
     private List<Rol> roles;
 
 
-    public User() {
+    public Users() {
     this.idUser = Long.parseLong(RandomIdGenerator.generateRandomId());
 }
+    
+    
 }
 
 

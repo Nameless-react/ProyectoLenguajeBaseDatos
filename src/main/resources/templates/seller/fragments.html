@@ -30,35 +30,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     data-bs-dismiss="modal" 
                                     aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/seller/guardar}" th:object="${seller}"
+                        <form th:action="@{/seller/save}" th:object="${agent}"
                               method="POST" class="was-validated"
                               enctype="multipart/form-data">
                             <div class="modal-body">
+                                <input type="hidden" th:name="user.idUser" th:value="${userSelectedId}" />
                                 <div class="mb-3">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" required="true"/>
+                                    <label for="userSelect" class="form-label">Seleccionar Usuario para vendedor</label>
+                                    <select class="form-select" id="userSelect">
+                                        <option value="" disabled selected>Seleccionar usuario</option>
+                                        <option th:each="user : ${usersWithoutAgent}" th:value="${user.idUser}" th:text="${user.name + ' ' + user.firstSurName + ' ' + user.secondSurName}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="">Experiencia del vendedor</label>
+                                    <input type="number" class="form-control" name="experience" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="apellidos">Apellidos</label>
-                                    <input type="text" class="form-control" name="apellidos" required="true"/>
+                                    <label for="salary">Salario(en colones, no es necesario el simbolo)</label>
+                                    <input type="number" class="form-control" name="salary" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email">Correo</label>
-                                    <input type="email" class="form-control" name="correo" required="true"/>
+                                    <label for="hireDate">Fecha de Contratación</label>
+                                    <input type="date" class="form-control" name="hireDate" required="true"/>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="telefono">Telefono</label>
-                                    <input type="tel" class="form-control" name="telefono"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="cedula">Cedula</label>
-                                    <input type="text" class="form-control" name="cedula"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="imagen">Imagen de Usuario</label>
-                                    <input class="form-control" type="file" name="imagenFile"
-                                           onchange="readURL(this);" />
-                                </div>
+
+
 
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
@@ -73,7 +71,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
 
         <!--Section Seller List: Show all seller in the Web App-->
-        <section th:fragment="sellerList" id="sellers">
+        <section th:fragment="sellerList" id="agents">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-9">
@@ -91,42 +89,117 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <div th:if="${sellers != null and !sellers.empty}">
+                        <div th:if="${agents != null and !agents.empty}">
                             <table class="table table-striped table-hover">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Correo</th>
-                                        <th>Telefono</th>
-                                        <th>Cedula</th>
+                                        <th>Name</th>    
+                                        <th>Salary</th>
+                                        <th>Experience</th>
+                                        <th>Email</th>
+                                        <th>Hire Date</th>
+
+
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="seller, contador : ${sellers}">
-                                        <td>[[${contador.count}]]</td>                                
-                                        <td>[[${seller.nombre}]]</td>
-                                        <td>[[${seller.apellidos}]]</td>
-                                        <td>[[${seller.correo}]]</td>
-                                        <td>[[${seller.telefono}]]</td>
-                                        <td>[[${seller.cedula}]]</td>
+                                    <tr th:each="agent, contador : ${agents}">
+                                        <td>[[${contador.count}]]</td>
+                                        <td>[[${agent.user.name}]] [[${agent.user.firstSurName}]] [[${agent.user.secondSurName}]]</td>
+                                        <td>[[${agent.salary}]]</td>
+                                        <td>[[${agent.experience}]] years</td>
+                                        <td>[[${agent.user.email}]]</td>
+                                        <td>[[${agent.hireDate}]]</td>
                                         <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                            <a th:href="@{/seller/eliminar/}+${seller.idSeller}" class="btn btn-danger">
-                                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                            <a th:href="@{/seller/delete/}+${agent.idAgent}" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i>Eliminar]
                                             </a>
-                                            <a th:href="@{/seller/modificar/}+${seller.idSeller}" class="btn btn-success">
-                                                <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                            <a th:href="@{/seller/modify/}+${agent.idAgent}" class="btn btn-primary">
+                                                <i class="fas fa-pencil"></i> Editar
                                             </a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="text-center p-2" th:if="${sellers == null or sellers.empty}">
+                        <div class="text-center p-2" th:if="${agents == null or agents.empty}">
                             <span>Lista Vacia</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="modifyAgent">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/seller/save}" th:object="${agent}"
+                          class="was-validated"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="idAgent" th:field="*{idAgent}"/>
+                        <input type="hidden" name="user.idUser" th:value="${agent.user.idUser}"/>
+                        <section th:replace="~{seller/fragments :: botonesEditar}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>Actualizar Agente</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="experience">Experiencia del vendedor</label>
+                                                    <input type="number"  class="form-control"
+                                                           name="experience" th:field="*{experience}"  
+                                                           required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="salary">Salario(en colones, no es necesario el simbolo)</label>
+                                                    <input type="number" class="form-control"
+                                                           name="salary" th:field="*{salary}" 
+                                                           required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="hireDate">Fecha de Contratación)</label>
+                                                    <p class="text-primary" >Si no deseas cambiarla puedes dejarla en blanco</p>
+                                                    <input type="date" class="form-control"
+                                                           name="hireDate" th:field="*{hireDate}" 
+                                                           />
+                                                </div>                                                                                                                                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/seller/sellerList}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Volver
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid" sec:authorize="hasRole('ROLE_ADMIN')">                                
+                        <a th:href="@{/seller/delete/}+${agent.idAgent}"
+                           class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Guardar
+                        </button>
                     </div>
                 </div>
             </div>

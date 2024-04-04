@@ -7,14 +7,12 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "Agent")
 public class Agent implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,15 +22,12 @@ public class Agent implements Serializable {
     private Integer experience;
     private LocalDate hireDate;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user")
-    private User user;
+    private Users user;
 
-
-    public Agent(Double salary, Integer experience, LocalDate hireDate, User user) {
-        this.salary = salary;
-        this.experience = experience;
-        this.hireDate = hireDate;
-        this.user = user;
+    public Agent() {
+        this.idAgent = Long.parseLong(RandomIdGenerator.generateRandomId());
     }
+
 }

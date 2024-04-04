@@ -7,7 +7,7 @@ package com.bienesRaices.Services.Impl;
 import com.bienesRaices.Dao.RolDao;
 import com.bienesRaices.Dao.UserDao;
 import com.bienesRaices.Domain.Rol;
-import com.bienesRaices.Domain.User;
+import com.bienesRaices.Domain.Users;
 import com.bienesRaices.Services.UserService;
 import java.util.List;
 import java.util.Random;
@@ -30,25 +30,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> getUsers() {
+    public List<Users> getUsers() {
         return userDao.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User getUser(User user) {
+    public Users getUser(Users user) {
         return userDao.findById(user.getIdUser()).orElse(null);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User getUserByEmail(String email) {
+    public Users getUserByEmail(String email) {
         return userDao.findByEmail(email);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User getUserByEmailPassword(String email, String password) {
+    public Users getUserByEmailPassword(String email, String password) {
         return userDao.findByEmailAndPassword(email, password);
     }
 
@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void save(User user, boolean createRolUser) {
-       User existingUser = userDao.findById(user.getIdUser()).orElse(null);
+    public void save(Users user, boolean createRolUser) {
+       Users existingUser = userDao.findById(user.getIdUser()).orElse(null);
        
        if(existingUser != null && user.getPassword()== null){
            user.setPassword(existingUser.getPassword());
@@ -84,12 +84,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void delete(User user) {
+    public void delete(Users user) {
        userDao.delete(user);
     }
 
     @Override
-    public User findById(Long id) {
+    public Users findById(Long id) {
         return userDao.findById(id).orElse(null);
     }
 

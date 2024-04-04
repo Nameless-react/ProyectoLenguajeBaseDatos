@@ -4,7 +4,7 @@
  */
 package com.bienesRaices.Services;
 
-import com.bienesRaices.Domain.User;
+import com.bienesRaices.Domain.Users;
 import java.util.List;
 
 /**
@@ -13,20 +13,21 @@ import java.util.List;
  */
 public interface UserService {
     
-    public List<User> getUsers();
+    public List<Users> getUsers();
     
     
-    public User findById(Long id);
-    public User getUser(User user);
+    public Users findById(Long id);
+    public Users getUser(Users user);
+    public  Users getUserByEmail(String email);
     
-    public  User getUserByEmail(String email);
-    
-    public User getUserByEmailPassword(String email, String password);
+    public Users getUserByEmailPassword(String email, String password);
 
     public boolean existsUserWithEmail(String email);
     
-    public void save(User user, boolean createRolUser);
+    public void save(Users user, boolean createRolUser);
     
-    public void delete (User user);
+    public void delete (Users user);
+
+
     
 }

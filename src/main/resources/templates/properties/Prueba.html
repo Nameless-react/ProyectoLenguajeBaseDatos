@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/fragments :: head }">
+        <title>Prueba</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/fragments :: header}"></header>
+       
+        <div class="properties">
+            <h1>Propiedades</h1>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form th:action="@{/properties/prueba}" method="get" class="mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="palabraClave" th:value="${palabraClave}" placeholder="Buscar propiedades..."/>
+                                <button type="submit" class="btn btn-primary">Buscar</button>
+                                <input type="button" class="btn btn-secondary " value="Limpiar" onclick="limpiarCampos()" />
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:if="${properties.hasPrevious()}">
+                                    <a class="page-link" th:href="@{/properties/prueba(page=${properties.previousPageable().pageNumber}, size=${properties.pageable.pageSize})}">Anterior</a>
+                                </li>
+                                <li class="page-item" th:each="page : ${#numbers.sequence(0, properties.totalPages - 1)}">
+                                    <a class="page-link" th:href="@{/properties/prueba(page=${page}, size=${properties.pageable.pageSize})}" th:text="${page + 1}"></a>
+                                </li>
+                                <li class="page-item" th:if="${properties.hasNext()}">
+                                    <a class="page-link" th:href="@{/properties/prueba(page=${properties.nextPageable().pageNumber}, size=${properties.pageable.pageSize})}">Siguiente</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="property" th:each="property : ${properties}">
+                <img src="https://www.bbva.com/wp-content/uploads/2021/04/casas-ecolo%CC%81gicas_apertura-hogar-sostenibilidad-certificado-.jpg" alt=""/>
+                <div class="property-info">
+                    <h3>[[${property.name}]]</h3>
+                    <h4>¢[[${property.price}]]</h4>
+                    <p>Dueño: [[${property.owner}]]</p>
+                    <p>Antigüedad: [[${property.antiquity}]] años</p>
+                    <a th:href="@{/properties/} + ${property.idProperty}">Más información <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:if="${properties.hasPrevious()}">
+                                <a class="page-link" th:href="@{/properties/prueba(page=${properties.previousPageable().pageNumber}, size=${properties.pageable.pageSize})}">Anterior</a>
+                            </li>
+                            <li class="page-item" th:each="page : ${#numbers.sequence(0, properties.totalPages - 1)}">
+                                <a class="page-link" th:href="@{/properties/prueba(page=${page}, size=${properties.pageable.pageSize})}" th:text="${page + 1}"></a>
+                            </li>
+                            <li class="page-item" th:if="${properties.hasNext()}">
+                                <a class="page-link" th:href="@{/properties/prueba(page=${properties.nextPageable().pageNumber}, size=${properties.pageable.pageSize})}">Siguiente</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="~{ layout/fragments :: footer }"/>
+        <script src="/js/script.js">
+            
+        </script>
+    </body>
+    
+</html>
