@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="col-md-auto">
                     <div class="info-profile">
                         <div class="d-flex align-items-center">
-                            <img  th:src="${#authentication.principal.image} == null ? 'https://urgenciesveterinaries.com/wp-content/uploads/2023/09/survet-gato-caida-pelo-01.jpeg' : ${#authentication.principal.image}" height="200" style="object-fit: cover; aspect-ratio: 1/1; margin: 10px" class="rounded-circle"/>
+                            <img  th:src="${#authentication.principal.image == null}  ? 'https://urgenciesveterinaries.com/wp-content/uploads/2023/09/survet-gato-caida-pelo-01.jpeg' : ${#authentication.principal.image}" height="200" style="object-fit: cover; aspect-ratio: 1/1; margin: 10px" class="rounded-circle"/>
                         </div>
                         <div class="info-profile-subdiv" >
                             <h2 th:text=" 'Nombre: ' + ${#authentication.principal.name}  + ' '+ ${#authentication.principal.firstSurName}  + ' '+ ${#authentication.principal.secondSurName}" class="mb-0">Nombre Apellidos</h2>
@@ -40,21 +40,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <section>
             <div class="container-profile-add-property">
                 <div>
-                    <a th:href="@{/properties/new/}" class="btn btn-success px-5 py-2 ml-3 mr-3 mt-3 tex-light"><i class="fa-solid fa-plus"></i>Agregar Propiedad</a>
+                    <a th:href="@{/properties/new}" class="btn btn-success px-5 py-2 ml-3 mr-3 mt-3 tex-light"><i class="fa-solid fa-plus"></i>Agregar Propiedad</a>
 
 
                 </div>    
                 <div class="favorite-container">
                     <div class="property-favorite" th:each="addedProperty : ${addedProperties}">
-                        <img th:src="${addedProperty.property.imagesLength()} > 0 ? ${addedProperty.property.images[0].image} : 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg'" alt="">
+                        <img th:src="${addedProperties.empty or addedProperties == null} ? 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg' : ${addedProperty.images[0].image}" alt="">
                         <div class="property-info">
-                            <h3>[[${addedProperty.property.name}]]</h3>
-                            <h4>¢[[${addedProperty.property.price}]]</h4>
-                            <p>Dueño: [[${addedProperty.property.owner}]]</p>
+                            <h3>[[${addedProperty.name}]]</h3>
+                            <h4>¢[[${addedProperty.price}]]</h4>
+                            <p>Dueño: [[${addedProperty.owner}]]</p>
                             <div class="options-property">
-                                <a   th:href="@{/properties/} + ${addedProperty.property.idProperty}">Más información <i class="fa-solid fa-arrow-right"></i></a>
-                                <a  sec:authorize="hasRole('ROLE_ADMIN')"  th:href="@{/properties/update/} + ${addedProperty.property.idProperty}">Editar <i class="fa-solid fa-pen-to-square"></i></a>
-                                <button sec:authorize="hasRole('ROLE_ADMIN')"  th:attr="onclick='deleteProperty(' + ${addedProperty.property.idProperty} + ')'" >Eliminar <i class="fa-solid fa-trash"></i></button>
+                                <a   th:href="@{/properties/} + ${addedProperty.idProperty}">Más información <i class="fa-solid fa-arrow-right"></i></a>
+                                <a  sec:authorize="hasRole('ROLE_ADMIN')"  th:href="@{/properties/update/} + ${addedProperty.idProperty}">Editar <i class="fa-solid fa-pen-to-square"></i></a>
+                                <button sec:authorize="hasRole('ROLE_ADMIN')"  th:attr="onclick='deleteProperty(' + ${addedProperty.idProperty} + ')'" >Eliminar <i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
                     </div>

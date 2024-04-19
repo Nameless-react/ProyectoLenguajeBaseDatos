@@ -58,11 +58,12 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests((request) -> request
                 .requestMatchers("/ ", "/index", "/error", "/aboutUs", "/properties/{idProperty}",
                         "/signUp/**", "/properties/list", "/js/**", "/webjars/**",
-                        "/img/**", "/JS/**", "/CSS/**", "/webjars/**", "/favorite-properties/**")
+                        "/img/**", "/JS/**", "/CSS/**", "/webjars/**", "/favorite-properties/**", "/profile/**")
                 .permitAll()
                 .requestMatchers(
                         "/user/**",
                         "/seller/**",
+                        "/properties/new/",
                         "/properties/new",
                         "properties/save",
                         "/properties/update/**",
@@ -72,6 +73,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                 )
                 .hasAnyAuthority("ADMIN", "ROLE_ADMIN")
                 .requestMatchers("/contact", "/profile/**",
+                        "/profile/{idUser}",
                         "/favorite-properties/{idFavoriteProperty}," +
                                 "/properties/contact/**")
                 .hasAuthority("ROLE_USER") // Usar hasAuthority en lugar de hasRole

@@ -1,3 +1,13 @@
+.container-error {
+    width: 90%;
+    margin: 30rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
 .properties {
     display: flex;
     align-items: center;
