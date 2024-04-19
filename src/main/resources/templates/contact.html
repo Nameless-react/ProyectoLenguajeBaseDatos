@@ -1,40 +1,53 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
-      xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{ layout/fragments :: head }">
-        <title>Bienes Raices</title>
-        <meta charset="UTF-8"/>
+      xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{ layout/fragments :: head }">
+    <title>Bienes Raices</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <header th:replace="~{ layout/fragments :: header }"/>
 
-    </head>
-    <body>
-        <header th:replace="~{ layout/fragments :: header }"/>
-
-        <main>
-            <h1>Contacto</h1>
-            <div>
-                <form action="" method="POST">
-                    <fieldset>
-                        <legend>
-                            Contacto
-                        </legend>
-                        <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" />
-                        <label for="correo">Correo</label>
-                        <input type="email" name="correo" id="correo" />
-                        <label for="asunto">Asunto</label>
-                        <input type="text" name="asunto" id="asunto" />
-                        <label for="mensaje">Mensaje</label>
-                        <textarea name="mensaje" id="mensaje">
-
-                                </textarea>
-                    </fieldset>
-                    <button type="submit">
-                        Enviar
-                    </button>
-                </form>
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Contacto</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            <fieldset>
+                                <legend class="text-center mb-3">Contacto</legend>
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" name="nombre" id="nombre" class="form-control" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="correo">Correo</label>
+                                    <input type="email" name="correo" id="correo" class="form-control" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="asunto">Asunto</label>
+                                    <input type="text" name="asunto" id="asunto" class="form-control" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mensaje">Mensaje</label>
+                                    <textarea name="mensaje" id="mensaje" class="form-control" rows="5" required></textarea>
+                                </div>
+                            </fieldset>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mt-4">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </main>
-        <footer th:replace="~{ layout/fragments :: footer }"/>
-    </body>
+        </div>
+    </main>
+
+    <footer th:replace="~{ layout/fragments :: footer }"/>
+
+    
+</body>
 </html>
