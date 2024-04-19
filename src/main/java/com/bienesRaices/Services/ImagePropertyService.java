@@ -13,5 +13,5 @@ public interface ImagePropertyService {
     public ImageProperty getImageProperty(long id);
     public List<ImageProperty> getImagesProperty(long id);
     public void delete(long id);
-    public void save(ImageProperty imageProperty);
+    public void save(Long idProperty, String image);
 }

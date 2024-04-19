@@ -113,8 +113,7 @@ async function deleteImage(imageId) {
 
 function removeFromFileList(fileList, indexToRemove) {
     let newFileList = new DataTransfer();
-    console.log(fileList);
-    console.log(fileList.length)
+
     if (fileList.length <= 1)
         return newFileList.files;
 
@@ -123,14 +122,11 @@ function removeFromFileList(fileList, indexToRemove) {
             newFileList.items.add(fileList[i]);
         }
     }
-    console.log(newFileList);
-
     return newFileList.files;
 }
 
 
 async function deleteProperty(propertyId) {
-    console.log(typeof propertyId)
     await fetch(`http://localhost:8080/properties/${propertyId}`, {
         method: "DELETE"
     })
@@ -139,6 +135,19 @@ async function deleteProperty(propertyId) {
 
 function limpiarCampos() {
     window.location.href = '/properties/list';
+}
+
+
+async function deleteFavoriteProperty(favoritePropertyId) {
+     await fetch(`http://localhost:8080/favorite-properties/${favoritePropertyId}`, {
+            method: "DELETE"
+    })
+    location.reload();
+}
+
+async function addFavorite(propertyId, userId) {
+    console.log(userId)
+    await fetch(`http://localhost:8080/favorite-properties/add?idProperty=${propertyId}&idUser=${userId}`)
 }
 
 

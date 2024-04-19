@@ -31,6 +31,9 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private FireBaseStorageService firebaseStorageService;
+
     @GetMapping("/userList")
     public String userList(Model model) {
         var users = userService.getUsers();
@@ -42,9 +45,6 @@ public class UsersController {
     public String usuarioNuevo(Users user) {
         return "/user/modify";
     }
-
-    @Autowired
-    private FireBaseStorageService firebaseStorageService;
 
     @PostMapping("/save")
     public String usuarioGuardar(Users user,

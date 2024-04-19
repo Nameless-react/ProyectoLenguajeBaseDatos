@@ -15,6 +15,7 @@ public interface PropertyService {
     public void delete(long id);
     Page<Property> getProperties(String word,int page, int size);
     public Property save(Property property);
+    public List<Property> getPropertiesByAgent(Long id);
     Page<Property> getPropertyPage(SpringDataWebProperties.Pageable pageable);
     Page<Property> getPropertyPageBetweenPrice(long initPrice, long finishPrice, Pageable pageable);
 }

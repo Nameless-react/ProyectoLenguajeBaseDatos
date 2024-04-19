@@ -31,12 +31,12 @@ public class ImagePropertyServiceImpl implements ImagePropertyService {
     @Override
     @Transactional
     public void delete(long id) {
-        imagePropertyDao.deleteById(id);
+        imagePropertyDao.deleteImageProperty(id);
     }
 
     @Override
     @Transactional
-    public void save(ImageProperty imageProperty) {
-        imagePropertyDao.save(imageProperty);
+    public void save(Long idProperty, String image) {
+        imagePropertyDao.addPropertyImage(idProperty, image);
     }
 }

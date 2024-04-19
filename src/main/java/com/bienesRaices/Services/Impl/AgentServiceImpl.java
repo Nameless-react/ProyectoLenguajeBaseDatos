@@ -30,7 +30,6 @@ public class AgentServiceImpl implements AgentService {
     @Override
     @Transactional
     public Agent save(Agent agent) {
-
         return agentDao.save(agent);
     }
 

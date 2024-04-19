@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.User;
 @Data
 public class CustomUserDetailsService extends User{
     
-    public CustomUserDetailsService(String username, String password,String image,String firstSurName, String secondSurName, String phone   ,String identification, String name ,Collection<? extends GrantedAuthority> authorities) {
+    public CustomUserDetailsService(String username, String password,String image,String firstSurName, String secondSurName, String phone, Long idUser, String identification, String name ,Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.name = name;
         this.identification = identification;
@@ -22,14 +22,16 @@ public class CustomUserDetailsService extends User{
         this.firstSurName =  firstSurName;
         this.secondSurName =  secondSurName;
         this.phone = phone;
-        
+        this.idUser = idUser;
     }
-    private final String  name ;
-    private final String  identification ;
-    private final String  image ;
-    private final String  firstSurName ;
-    private final String  secondSurName ;
-    private final String phone ;
+
+    private final String  name;
+    private final Long idUser;
+    private final String  identification;
+    private final String  image;
+    private final String  firstSurName;
+    private final String  secondSurName;
+    private final String phone;
 
     
     

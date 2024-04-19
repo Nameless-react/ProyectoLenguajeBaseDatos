@@ -26,6 +26,8 @@ public class PropertyController {
     @Autowired
     private CharacteristicsService characteristicsService;
 
+    @Autowired
+    private ContactService contactService;
 
     @Autowired
     private AgentService agentService;
@@ -36,8 +38,6 @@ public class PropertyController {
     @Autowired
     private ImagePropertyService imagePropertyService;
 
-//    @Autowired
-//    private UserServic user;
 
     @GetMapping("/list")
     public String list(
@@ -77,7 +77,7 @@ public class PropertyController {
                     fireBaseStorageService.loadImage(image, "/properties", property.getPrice().longValue() + LocalDateTime.now().getNano())
             );
             System.out.println(imageProperty);
-            imagePropertyService.save(imageProperty);
+            imagePropertyService.save(imageProperty.getIdProperty(), imageProperty.getImage());
         }
 
         return "redirect:/properties/list";
@@ -105,13 +105,12 @@ public class PropertyController {
                     property.getIdProperty(),
                     fireBaseStorageService.loadImage(image, "/properties", property.getPrice().longValue() + LocalDateTime.now().getNano())
             );
-            imagePropertyService.save(imageProperty);
+            imagePropertyService.save(imageProperty.getIdProperty(), imageProperty.getImage());
         }
         List<ImageProperty> savedImages = imagePropertyService.getImagesProperty(property.getIdProperty());
 
         property.setImages(savedImages);
-        System.out.println(property);
-        System.out.println(images.length);
+
 
         addressService.save(property.getAddress());
         characteristicsService.save(property.getCharacteristics());
@@ -134,5 +133,18 @@ public class PropertyController {
         model.addAttribute("property", property);
         model.addAttribute("propertyLength", property.getImages().size());
         return "/properties/property";
+    }
+
+    @GetMapping("/contact/{idProperty}")
+    public String contact(Property property, Model model) {
+        model.addAttribute("idProperty", property.getIdProperty());
+
+        return "/properties/contact";
+    }
+
+    @PostMapping("/contact/save")
+    public String contactSave(Contact contact, Model model) {
+        contactService.save(contact);
+        return "redirect:/";
     }
 }

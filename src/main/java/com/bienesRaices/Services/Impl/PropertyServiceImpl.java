@@ -12,6 +12,8 @@ import com.bienesRaices.Dao.PropertyDao;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.PageRequest;
 
 @Service
@@ -41,6 +43,11 @@ public class PropertyServiceImpl implements PropertyService {
     @Transactional
     public Property save(Property property) {
         return propertyDao.save(property);
+    }
+
+    @Override
+    public List<Property> getPropertiesByAgent(Long id) {
+        return propertyDao.findAll().stream().filter(property -> property.getAgent().getIdAgent() == id).collect(Collectors.toList());
     }
 
     @Override

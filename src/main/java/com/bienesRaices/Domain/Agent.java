@@ -9,6 +9,10 @@ import java.time.LocalDate;
 
 @Data
 @Entity
+@NamedStoredProcedureQuery(name = "Agent.addAgent",
+        procedureName = "Add_Agent", parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_id_property", type = Long.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_id_user", type = Long.class)})
 @Table(name = "Agent")
 public class Agent implements Serializable {
 

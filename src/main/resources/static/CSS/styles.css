@@ -9,7 +9,7 @@
     gap: 3rem;
 }
 
-.property {
+.property, .property-favorite {
     min-height: 500px;
     background-color: #eee;
     padding: 4rem 2rem;
@@ -21,11 +21,24 @@
     gap: 6rem;
 }
 
-.property img {
+.property-favorite {
+    flex-direction: column;
+}
+
+.property-favorite h3, .property h3 {
+    text-align: center;
+}
+
+.property img, .property-favorite img {
     width: 50%;
     border-radius: 20px;
     min-width: 550px;
 }
+
+.property-favorite img {
+    min-width: 200px;
+    width: 80%;
+} 
 
 .property-info {
     display: flex;
@@ -135,12 +148,14 @@
 }
 
 
-.contact-button {
+.contact-button, .add-favorite-button {
     padding: .5em 1.5em;
     font-size: 1.5rem;
     background: #e9da70;
     border-radius: 20px;
     color: #fff;
+    outline: none;
+    border:none;
     text-decoration: none;
     font-weight: bold;
     display: block;
@@ -149,9 +164,20 @@
     transition: background .5s ease;
 }
 
+.add-favorite-button {
+    margin-top: .5rem;
+    background: #FFD700;
+    width: 100%;
+}
+
 .contact-button:hover {
-    background: #fcee82;
+    background: #c4b967;
     color: #fff;
+}
+
+
+.add-favorite-button:hover {
+    background: #e1c000;
 }
 
 .slideshow-container {
@@ -257,7 +283,7 @@
     justify-content: flex-start;
 }
 
-.add-button, .button-save-property {
+.add-button, .button-save-property, .button-contact {
     padding: .5em .9em;
     outline: none;
     font-size: 1.4rem;
@@ -274,20 +300,22 @@
     transition: all .5s ease;
 }
 
-.add-button:hover, .button-save-property:hover {
+.add-button:hover, .button-save-property:hover, .button-contact {
     width: 15%;
     color: #fff;
 }
 
 
 .form-add-property-container,
-.form-edit-property-container {
+.form-edit-property-container,
+.form-contact-container {
     width: 80%;
     margin: 14.5rem auto;
 }
 
 .form-add-property-container form,
-.form-edit-property-container form {
+.form-edit-property-container form,
+.form-contact form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -299,26 +327,29 @@
 }
 
 .form-add-property-container form h1,
-.form-edit-property-container form h1 {
+.form-edit-property-container form h1,
+.form-contact-container form h1 {
     font-weight: bold;
 }
 
 .form-add-property-container form a,
-.form-edit-property-container form a {
+.form-edit-property-container form a,
+.form-contact-container form a {
     align-self: flex-start;
     font-size: 3rem;
     color: #000;
 }
 
 .form-add-property-container form input, .form-add-property-container form select, .form-add-property-container form textarea, 
-.form-edit-property-container form input, .form-edit-property-container form select, .form-edit-property-container form textarea {
+.form-edit-property-container form input, .form-edit-property-container form select, .form-edit-property-container form textarea,
+.form-contact form input, .form-contact form textarea {
     border: none;
     border-radius: 20px;
     padding: .5em 1em;
     width: 100%;
 }
 
-.input-form-add-property, .input-form-edit-property {
+.input-form-add-property, .input-form-edit-property, .contact-property-input {
     width: 80%;
     display: flex;
     align-items: center;
@@ -327,17 +358,17 @@
     flex-direction: column;
 }
 
-.input-form-add-property label, .input-form-edit-property label {
+.input-form-add-property label, .input-form-edit-property label, .contact-property-input label {
     align-self: flex-start;
     font-weight: bold;
 }
 
-.form-add-property-container .input-form-add-property:nth-child(12), .form-edit-property-container .input-form-edit-property:nth-child(15) {
+.form-add-property-container .input-form-add-property:nth-child(13), .form-edit-property-container .input-form-edit-property:nth-child(15) {
     flex-direction: row;
     justify-content: flex-start;
 }
 
-.input-form-add-property > div, .input-form-edit-property > div {
+.input-form-add-property > div, .input-form-edit-property > div, .contact-property-input > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -414,6 +445,80 @@
     opacity: 1;
 }
 
+
+.info-profile {
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4rem;
+    background-color: #eee;
+}
+
+
+.info-profile div:nth-child(2) > *:not(a) {
+    font-size: 1.5rem;
+    color: #000;
+}
+
+.info-profile div:nth-child(2) a {
+    background-color: #3347ff;
+    outline: none;
+    border: none;
+}
+
+.info-profile div:nth-child(2) h2 {
+    font-weight: bold;
+}
+.favorite-section {
+    width: 90%;
+    margin: 6rem auto;
+}
+
+.favorite-section h2 {
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+hr {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.favorite-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.info-profile-subdiv {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.container-profile-add-property {
+    margin: 6rem auto;
+    width: 90%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.property-favorite {
+    width: 30%;
+    max-width: 700px;
+    min-width: 350px;
+}
+
 @media (max-width: 1000px) {
     .individual-property {
         flex-direction: column;
@@ -442,6 +547,7 @@
         justify-content: flex-start;
     }
 }
+
 
 @media (max-width: 1200px) {
     .property {

@@ -4,22 +4,28 @@
  */
 package com.bienesRaices.Domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  *
  * @author arjoz
  */
 @Data
+@NoArgsConstructor
 @Entity
+@NamedStoredProcedureQuery(name = "Rol.addRol",
+        procedureName = "Add_Rol", parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_name", type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_id_user", type = Long.class)})
+
 @Table(name = "Rol")
-public class Rol {
+public class Rol implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_rol")
@@ -27,4 +33,9 @@ public class Rol {
     private String name;
     @Column(name="id_user")
     private Long idUser;
+
+    public Rol (String name, Long idUser) {
+        this.name = name;
+        this.idUser = idUser;
+    }
 }

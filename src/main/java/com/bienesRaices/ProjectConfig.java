@@ -56,19 +56,24 @@ public class ProjectConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/error", "/aboutUs", "/properties/{idProperty}",
+                .requestMatchers("/ ", "/index", "/error", "/aboutUs", "/properties/{idProperty}",
                         "/signUp/**", "/properties/list", "/js/**", "/webjars/**",
-                        "/img/**", "/js/**", "/CSS/**", "/webjars/**")
+                        "/img/**", "/JS/**", "/CSS/**", "/webjars/**", "/favorite-properties/**")
                 .permitAll()
                 .requestMatchers(
                         "/user/**",
                         "/seller/**",
                         "/properties/new",
                         "properties/save",
-                        "/properties/update/**"
+                        "/properties/update/**",
+                        "/profile/**",
+                        "/favorite-properties/{idFavoriteProperty}",
+                        "/properties/contact/**"
                 )
                 .hasAnyAuthority("ADMIN", "ROLE_ADMIN")
-                .requestMatchers("/contact" ,"/profile/perfil")
+                .requestMatchers("/contact", "/profile/**",
+                        "/favorite-properties/{idFavoriteProperty}," +
+                                "/properties/contact/**")
                 .hasAuthority("ROLE_USER") // Usar hasAuthority en lugar de hasRole
                 )
                 .formLogin((form) -> form
@@ -77,7 +82,8 @@ public class ProjectConfig implements WebMvcConfigurer {
                 )
                 .logout((logout) -> logout.permitAll()
                 .logoutSuccessUrl("/")
-                );
+                )
+                .cors().and().csrf().disable();
 
         return http.build();
     }
